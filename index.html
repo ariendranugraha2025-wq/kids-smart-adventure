@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kids Smart Adventure - Belajar Ceria TK & SD Kelas 1 | Science Tech Store</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Fredoka & Nunito -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            softPink: '#FF9AA2',
+            softPeach: '#FFB7B2',
+            bananaYellow: '#FFDAC1',
+            mintGreen: '#E2F0CB',
+            skyBlue: '#B5EAD7',
+            bubblegum: '#C7CEEA',
+            accentOrange: '#FF9F1C',
+            accentPurple: '#9B51E0'
+          },
+          fontFamily: {
+            fredoka: ['Fredoka', 'sans-serif'],
+            nunito: ['Nunito', 'sans-serif']
+          },
+          boxShadow: {
+            bouncy: '0 8px 0 0 rgba(0, 0, 0, 0.12)',
+            bouncySm: '0 4px 0 0 rgba(0, 0, 0, 0.12)',
+            glow: '0 0 25px rgba(255, 154, 162, 0.6)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa 0%, #fffde7 50%, #f3e5f5 100%);
+      min-height: 100vh;
+      user-select: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.night-mode {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+      color: #f8fafc;
+    }
+
+    .night-mode .bg-white {
+      background-color: #1e293b !important;
+      color: #f8fafc !important;
+      border-color: #334155 !important;
+    }
+
+    .night-mode .text-slate-800, 
+    .night-mode .text-slate-900,
+    .night-mode .text-slate-700 {
+      color: #f1f5f9 !important;
+    }
+
+    .night-mode .text-slate-600,
+    .night-mode .text-slate-500 {
+      color: #cbd5e1 !important;
+    }
+
+    .night-mode .bg-slate-50,
+    .night-mode .bg-slate-100 {
+      background-color: #334155 !important;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(2deg); }
+    }
+    @keyframes pulseSoft {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    .animate-float { animation: floatSlow 3.5s ease-in-out infinite; }
+    .animate-pulse-soft { animation: pulseSoft 2s ease-in-out infinite; }
+    .btn-press { transition: all 0.15s ease-in-out; }
+    .btn-press:active { transform: translateY(4px); }
+
+    ::-webkit-scrollbar { width: 12px; }
+    ::-webkit-scrollbar-track { background: #fff5f5; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: #FF9AA2; border-radius: 10px; border: 3px solid #fff; }
+
+    @media print {
+      body * { visibility: hidden; }
+      #printableCert, #printableCert * { visibility: visible; }
+      #printableCert { position: absolute; left: 0; top: 0; width: 100%; height: 100%; border: none; }
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800 relative">
+
+  <!-- TOAST NOTIFIKASI VISUAL -->
+  <div id="toastNotification" class="fixed top-20 right-4 z-[100] hidden bg-slate-900/90 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border-2 border-yellow-400 max-w-sm backdrop-blur-md transition-all duration-300">
+    <span id="toastIcon" class="text-2xl">📢</span>
+    <span id="toastMessage" class="text-xs font-bold leading-tight"></span>
+  </div>
+
+  <!-- FLOATING WHATSAPP HELP DESK WITH POPUP INSTANT -->
+  <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2">
+    <div id="waPopupMsg" class="hidden bg-white p-3 rounded-2xl shadow-xl border-2 border-emerald-400 text-xs font-bold text-slate-700 max-w-xs animate-bounce">
+      💬 Ada pertanyaan seputar aplikasi atau buku cerita digital? Klik di sini!
+    </div>
+    <a href="https://wa.me/6285974341029?text=Halo%20Admin%20Science%20Tech%20Store,%20saya%20ingin%20bertanya%20mengenai%20Kids%20Smart%20Adventure" target="_blank" onmouseenter="document.getElementById('waPopupMsg').classList.remove('hidden')" onmouseleave="document.getElementById('waPopupMsg').classList.add('hidden')" class="w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center text-3xl shadow-2xl transition" title="Tanya Admin Science Tech Store">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <!-- ================= HEADER NAVIGASI ================= -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-md border-b-4 border-bananaYellow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      
+      <!-- SVG LOGO RESMI (BEBAS EMOJI) -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="showSection('home')">
+        <div class="w-14 h-14 bg-gradient-to-tr from-softPink via-bananaYellow to-skyBlue rounded-3xl flex items-center justify-center shadow-bouncy transform hover:rotate-12 transition p-2">
+          <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+            <circle cx="50" cy="50" r="45" fill="#FF9F1C" />
+            <!-- Maskot Burung Hantu Smarty -->
+            <circle cx="50" cy="54" r="32" fill="#8B5CF6" />
+            <circle cx="50" cy="58" r="24" fill="#FDE047" />
+            <circle cx="38" cy="42" r="11" fill="#FFFFFF" />
+            <circle cx="62" cy="42" r="11" fill="#FFFFFF" />
+            <circle cx="40" cy="42" r="5" fill="#0F172A" />
+            <circle cx="60" cy="42" r="5" fill="#0F172A" />
+            <polygon points="50,48 45,56 55,56" fill="#F97316" />
+            <!-- Topi Toga/Bintang -->
+            <polygon points="50,12 20,28 50,36 80,28" fill="#1E293B" />
+            <polygon points="70,31 70,44 66,44 66,33" fill="#FACC15" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-black tracking-wide bg-gradient-to-r from-pink-500 via-purple-500 to-sky-500 bg-clip-text text-transparent">
+            KIDS SMART
+          </h1>
+          <p class="text-[10px] sm:text-xs font-black text-amber-500 tracking-widest -mt-1 uppercase">Science Tech Store Official</p>
+        </div>
+      </div>
+
+      <!-- Nav Items Desktop -->
+      <nav class="hidden lg:flex items-center space-x-1 text-sm">
+        <button onclick="showSection('home')" class="px-4 py-2 rounded-2xl font-bold text-slate-700 hover:bg-pink-100 hover:text-pink-600 transition flex items-center gap-2">
+          <i class="fa-solid fa-house"></i> Beranda
+        </button>
+        <button onclick="showSection('map')" class="px-4 py-2 rounded-2xl font-bold text-slate-700 hover:bg-emerald-100 hover:text-emerald-600 transition flex items-center gap-2">
+          <i class="fa-solid fa-map-location-dot"></i> Peta Dunia
+        </button>
+        <button onclick="showSection('store')" class="px-4 py-2 rounded-2xl font-bold text-slate-700 hover:bg-amber-100 hover:text-amber-600 transition flex items-center gap-2">
+          <i class="fa-solid fa-book-bookmark"></i> Katalog E-Book
+        </button>
+        <button onclick="showSection('guide')" class="px-4 py-2 rounded-2xl font-bold text-slate-700 hover:bg-purple-100 hover:text-purple-600 transition flex items-center gap-2">
+          <i class="fa-solid fa-compass"></i> Panduan
+        </button>
+        <button onclick="showSection('about')" class="px-4 py-2 rounded-2xl font-bold text-slate-700 hover:bg-sky-100 hover:text-sky-600 transition flex items-center gap-2">
+          <i class="fa-solid fa-store"></i> Tentang Kami
+        </button>
+      </nav>
+
+      <!-- User & Settings Bar -->
+      <div class="flex items-center space-x-2">
+        <!-- FITUR TERBARU: AUDIO BACKGROUND MUSIC BGM -->
+        <button onclick="toggleBackgroundMusic()" id="btnBgmToggle" class="w-10 h-10 bg-pink-100 hover:bg-pink-200 text-pink-700 rounded-2xl flex items-center justify-center text-lg transition shadow-bouncySm" title="Musik Latar Ceria (BGM)">
+          <i class="fa-solid fa-music"></i>
+        </button>
+        <button onclick="toggleNightMode()" class="w-10 h-10 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 rounded-2xl flex items-center justify-center text-lg transition shadow-bouncySm" title="Mode Malam Bintang">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button onclick="toggleAiSettingsModal()" class="w-10 h-10 bg-amber-100 hover:bg-amber-200 text-amber-800 rounded-2xl flex items-center justify-center text-lg transition shadow-bouncySm" title="Pengaturan AI Smarty">
+          <i class="fa-solid fa-robot"></i>
+        </button>
+
+        <div id="navUserStatus"></div>
+
+        <button onclick="toggleMobileMenu()" class="lg:hidden text-2xl text-slate-700 p-2">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-white border-t border-slate-100 p-4 space-y-2 font-bold text-sm">
+      <button onclick="showSection('home'); toggleMobileMenu();" class="w-full text-left py-2 px-4 rounded-xl hover:bg-slate-100"><i class="fa-solid fa-house text-pink-500 mr-2"></i> Beranda</button>
+      <button onclick="showSection('map'); toggleMobileMenu();" class="w-full text-left py-2 px-4 rounded-xl hover:bg-slate-100"><i class="fa-solid fa-map-location-dot text-emerald-500 mr-2"></i> Peta Petualangan</button>
+      <button onclick="showSection('store'); toggleMobileMenu();" class="w-full text-left py-2 px-4 rounded-xl hover:bg-slate-100"><i class="fa-solid fa-book-bookmark text-amber-500 mr-2"></i> Buku Digital Science Tech</button>
+      <button onclick="showSection('guide'); toggleMobileMenu();" class="w-full text-left py-2 px-4 rounded-xl hover:bg-slate-100"><i class="fa-solid fa-compass text-purple-500 mr-2"></i> Panduan & Langkah</button>
+      <button onclick="showSection('about'); toggleMobileMenu();" class="w-full text-left py-2 px-4 rounded-xl hover:bg-slate-100"><i class="fa-solid fa-store text-sky-500 mr-2"></i> Tentang Science Tech Store</button>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- 1. BERANDA (HERO & AVATAR SELECTION & DAILY QUEST) -->
+    <section id="sec-home" class="space-y-12">
+      <!-- BANNER HERO -->
+      <div class="bg-gradient-to-r from-softPink via-bananaYellow to-skyBlue rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden border-4 border-white flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="space-y-6 max-w-xl text-center md:text-left z-10">
+          <span class="inline-block bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full font-extrabold text-pink-600 text-xs sm:text-sm shadow-sm uppercase tracking-wider">
+            ✨ Peluncuran Resmi Science Tech Store
+          </span>
+          <h2 class="text-4xl sm:text-5xl font-black text-slate-900 leading-tight">
+            Petualangan Cerdas di <span class="bg-white px-3 py-1 rounded-2xl text-purple-600 inline-block shadow-md">11 Dunia</span> Edukasi!
+          </h2>
+          <p class="text-slate-800 font-bold text-base sm:text-lg leading-relaxed">
+            Dilengkapi AI Pembaca Soal, Opsi Jawaban A-B-C-D Besar, Sistem Hint 50:50, Album Stiker, dan Sertifikat Kelulusan Resmi!
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center md:justify-start pt-2">
+            <button onclick="showSection('map')" class="btn-press bg-pink-500 hover:bg-pink-600 text-white font-black px-8 py-4 rounded-2xl text-xl shadow-bouncy transition flex items-center gap-3">
+              🚀 Mulai Peta Petualangan
+            </button>
+            <button onclick="openLoginModal('guru')" class="btn-press bg-white hover:bg-slate-50 text-purple-700 font-black px-6 py-4 rounded-2xl text-lg shadow-bouncy transition">
+              👩‍🏫 Portal Guru & AI
+            </button>
+          </div>
+        </div>
+
+        <!-- MASKOT & AVATAR PICKER -->
+        <div class="relative z-10 flex flex-col items-center">
+          <div id="heroAvatarDisplay" class="w-60 h-60 sm:w-64 sm:h-64 bg-white/50 rounded-full flex items-center justify-center animate-float backdrop-blur-sm border-4 border-white shadow-glow p-4">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="#38BDF8" />
+              <circle cx="50" cy="65" r="28" fill="#F8FAFC" />
+              <circle cx="35" cy="45" r="10" fill="#FFFFFF" />
+              <circle cx="65" cy="45" r="10" fill="#FFFFFF" />
+              <circle cx="37" cy="45" r="5" fill="#0F172A" />
+              <circle cx="63" cy="45" r="5" fill="#0F172A" />
+              <path d="M 40 62 Q 50 72 60 62" stroke="#0F172A" stroke-width="4" fill="none" stroke-linecap="round" />
+            </svg>
+          </div>
+          
+          <div class="mt-4 flex items-center gap-2 bg-white/90 px-4 py-2 rounded-2xl shadow-md border border-slate-100">
+            <span class="text-xs font-black text-slate-700">Pilih Karaktermu:</span>
+            <button onclick="changeAvatar('cat')" class="w-8 h-8 rounded-full bg-pink-300 flex items-center justify-center font-bold text-xs">🐱</button>
+            <button onclick="changeAvatar('bear')" class="w-8 h-8 rounded-full bg-amber-300 flex items-center justify-center font-bold text-xs">🐻</button>
+            <button onclick="changeAvatar('rabbit')" class="w-8 h-8 rounded-full bg-purple-300 flex items-center justify-center font-bold text-xs">🐰</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATUS PROGRESS & PIPELINE GAMIFIKASI TERBARU (XP & LEVEL) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div class="bg-white p-6 rounded-3xl border-4 border-pink-200 shadow-lg flex items-center gap-4">
+          <div class="w-14 h-14 bg-pink-100 text-pink-600 rounded-2xl flex items-center justify-center text-2xl font-black">⭐</div>
+          <div>
+            <p class="text-xs font-black text-slate-400 uppercase">Total Bintang</p>
+            <p id="dashStars" class="text-3xl font-black text-pink-500">0</p>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl border-4 border-indigo-200 shadow-lg flex items-center gap-4">
+          <div class="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl font-black">⚡</div>
+          <div>
+            <p class="text-xs font-black text-slate-400 uppercase">Level & XP</p>
+            <p id="dashLevel" class="text-xl font-black text-indigo-600">Lvl 1 (0 XP)</p>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl border-4 border-emerald-200 shadow-lg flex items-center gap-4">
+          <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl font-black">🏆</div>
+          <div>
+            <p class="text-xs font-black text-slate-400 uppercase">Piala Diraih</p>
+            <p id="dashTrophies" class="text-3xl font-black text-emerald-500">0</p>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl border-4 border-amber-200 shadow-lg flex items-center gap-4">
+          <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-2xl font-black">🎨</div>
+          <div>
+            <p class="text-xs font-black text-slate-400 uppercase">Stiker Dikoleksi</p>
+            <p id="dashStickers" class="text-3xl font-black text-amber-500">0 / 11</p>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl border-4 border-purple-200 shadow-lg flex items-center gap-4">
+          <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-2xl font-black">📜</div>
+          <div>
+            <p class="text-xs font-black text-slate-400 uppercase">Sertifikat</p>
+            <button onclick="openCertificateModal()" class="text-xs bg-purple-600 hover:bg-purple-700 text-white font-black px-3 py-1.5 rounded-xl shadow-bouncySm mt-1">
+              Unduh PDF
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FITUR BARU: PETUALANGAN HARIAN & MISI BELAJAR -->
+      <div class="bg-white p-6 rounded-3xl border-4 border-amber-300 shadow-xl space-y-4">
+        <h3 class="text-xl font-black text-slate-800 flex items-center gap-2">
+          🎯 Misi Belajar Harian Kamu Hari Ini
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-bold">
+          <div class="bg-amber-50 p-4 rounded-2xl border-2 border-amber-200 flex items-center justify-between">
+            <span>⭐ Kumpulkan 30 Bintang</span>
+            <span id="questStarStatus" class="bg-amber-400 text-slate-900 px-2 py-1 rounded-lg">Progres: 0/30</span>
+          </div>
+          <div class="bg-emerald-50 p-4 rounded-2xl border-2 border-emerald-200 flex items-center justify-between">
+            <span>🗺️ Selesaikan 1 Dunia Belajar</span>
+            <span id="questWorldStatus" class="bg-emerald-400 text-white px-2 py-1 rounded-lg">Progres: 0/1</span>
+          </div>
+          <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 flex items-center justify-between">
+            <span>📖 Baca 1 E-Book Story Canvas</span>
+            <span id="questEbookStatus" class="bg-pink-400 text-white px-2 py-1 rounded-lg">Progres: 0/1</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PETA PETUALANGAN (INTERACTIVE WORLD MAP ROUTE WITH FILTER) -->
+    <section id="sec-map" class="hidden space-y-8">
+      <div class="bg-white p-6 rounded-3xl border-4 border-emerald-300 shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div>
+          <h2 class="text-3xl font-black text-slate-800 flex items-center gap-3">
+            🗺️ Peta Jalur Petualangan Belajar
+          </h2>
+          <p class="text-slate-600 font-bold text-sm">Selesaikan setiap dunia secara berurutan untuk membuka kunci stiker & sertifikat!</p>
+        </div>
+        <div class="flex gap-2">
+          <!-- FITUR TERBARU: FILTER KATEGORI DUNIA -->
+          <select id="mapCategoryFilter" onchange="filterMapCategory()" class="bg-slate-100 font-black text-slate-700 text-xs px-3 py-2 rounded-xl outline-none border border-slate-200">
+            <option value="all">🌐 Semua Kategori</option>
+            <option value="TK">TK (Vokal & Angka)</option>
+            <option value="SD 1">SD 1 (Kognitif)</option>
+          </select>
+          <button onclick="showSection('stickers')" class="btn-press bg-amber-400 hover:bg-amber-500 text-slate-900 font-black px-4 py-2 rounded-xl shadow-bouncySm flex items-center gap-2 text-xs">
+            🎨 Album Stiker
+          </button>
+        </div>
+      </div>
+
+      <!-- Grid Jalur Peta -->
+      <div id="mapRouteContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- 3. HALAMAN KUIS / SOAL (QUIZ PLAYER WITH SCRATCHPAD & LIVES & TIMER) -->
+    <section id="sec-quiz" class="hidden space-y-6 max-w-4xl mx-auto">
+      <!-- Top Bar -->
+      <div class="bg-white rounded-3xl p-4 sm:p-5 border-4 border-bananaYellow shadow-xl flex flex-wrap items-center justify-between gap-3">
+        <button onclick="showSection('map')" class="btn-press bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold px-4 py-2 rounded-2xl transition flex items-center gap-2 text-sm">
+          <i class="fa-solid fa-arrow-left"></i> Kembali Ke Peta
+        </button>
+
+        <!-- FITUR BARU: NYAWA HATI & TIMER VISUAL -->
+        <div class="flex items-center gap-3">
+          <div id="quizLivesContainer" class="flex gap-1 text-red-500 text-xl" title="Nyawa Hati">
+            ❤️❤️❤️
+          </div>
+          <span id="quizWorldBadge" class="px-4 py-1.5 rounded-2xl font-black text-white text-sm shadow-sm"></span>
+          <!-- FITUR TERBARU: LEVEL KOGNITIF -->
+          <span id="quizCognitiveLevel" class="hidden sm:inline-block bg-slate-100 text-slate-600 px-3 py-1 rounded-xl text-xs font-black"></span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- FITUR BARU: PAPAN SCRATCHPAD ORET-ORET -->
+          <button onclick="toggleScratchpad()" class="btn-press bg-purple-500 hover:bg-purple-600 text-white font-black px-3 py-2 rounded-2xl shadow-bouncySm transition text-xs flex items-center gap-1" title="Papan Coret-Coret Angka">
+            ✏️ Papan Oret-Oret
+          </button>
+          <button onclick="useHint5050()" id="btnHint5050" class="btn-press bg-amber-400 hover:bg-amber-500 text-slate-900 font-black px-3 py-2 rounded-2xl shadow-bouncySm transition text-xs flex items-center gap-1" title="Eliminasi 2 Jawaban Salah">
+            💡 Hint (50:50)
+          </button>
+          <button onclick="refreshCurrentWorldQuiz()" class="btn-press bg-sky-400 hover:bg-sky-500 text-white font-black px-3 py-2 rounded-2xl shadow-bouncySm transition text-xs">
+            🔄 Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- PAPAN CANVAS SCRATCHPAD CORETTAN (HIDDEN BY DEFAULT) -->
+      <div id="scratchpadBox" class="hidden bg-slate-900 p-4 rounded-3xl border-4 border-purple-400 shadow-2xl space-y-2">
+        <div class="flex justify-between items-center text-white text-xs font-black">
+          <span>✏️ Papan Tulis Coret-Coret Hitungan</span>
+          <button onclick="clearScratchpad()" class="bg-red-500 px-3 py-1 rounded-xl">Hapus Coretan</button>
+        </div>
+        <canvas id="scratchCanvas" width="600" height="200" class="w-full bg-slate-800 rounded-2xl cursor-crosshair touch-none"></canvas>
+      </div>
+
+      <!-- Main Quiz Card -->
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border-4 border-sky-300 shadow-2xl relative overflow-hidden space-y-6">
+        
+        <!-- Progress Bar Jejak Bintang -->
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-black text-slate-500 text-sm tracking-wide">
+              🐾 Soal Ke-<span id="quizCurrentIndex" class="text-pink-500 text-xl">1</span> dari <span id="quizTotalQuestions">10</span>
+            </span>
+            <span id="quizScoreCount" class="font-black text-amber-500 text-lg">⭐ 0 Bintang</span>
+          </div>
+          <div class="w-full bg-slate-100 h-5 rounded-full p-1 border-2 border-slate-200 overflow-hidden">
+            <div id="quizProgressBar" class="bg-gradient-to-r from-pink-400 via-yellow-400 to-emerald-400 h-full rounded-full transition-all duration-500 w-0"></div>
+          </div>
+        </div>
+
+        <!-- AI Speaker & Visual SVG -->
+        <div class="bg-amber-50 rounded-3xl p-6 border-4 border-yellow-200 flex flex-col items-center text-center space-y-4 relative">
+          <div class="flex flex-wrap items-center justify-center gap-2">
+            <button onclick="speakCurrentQuestion()" class="btn-press bg-gradient-to-r from-pink-400 to-purple-500 text-white font-black px-6 py-3 rounded-full shadow-bouncy hover:opacity-90 transition flex items-center gap-3 text-lg">
+              <i class="fa-solid fa-volume-high text-xl animate-pulse-soft"></i> Smarty, Bacakan Soalnya!
+            </button>
+            <button onclick="speakAllOptions()" class="btn-press bg-amber-400 hover:bg-amber-500 text-slate-900 font-black px-4 py-3 rounded-full shadow-bouncySm transition text-xs flex items-center gap-1" title="Bacakan Pilihan Jawaban">
+              📢 Bacakan Opsi (A-D)
+            </button>
+          </div>
+
+          <!-- SVG Visual Container -->
+          <div id="quizQuestionVisual" class="w-28 h-28 py-2 transition-transform transform hover:scale-110 flex items-center justify-center"></div>
+
+          <!-- Text Soal -->
+          <h3 id="quizQuestionText" class="text-2xl sm:text-3xl font-black text-slate-800 leading-snug"></h3>
+        </div>
+
+        <!-- 4 Options (A, B, C, D) -->
+        <div id="quizOptionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2"></div>
+
+        <!-- Feedback Area -->
+        <div id="quizFeedbackArea" class="hidden p-4 rounded-2xl text-center font-black text-xl transition-all"></div>
+      </div>
+    </section>
+
+    <!-- 4. HASIL KUIS & HADIAH STIKER -->
+    <section id="sec-result" class="hidden max-w-xl mx-auto text-center space-y-6">
+      <div class="bg-white rounded-3xl p-8 sm:p-12 border-4 border-yellow-400 shadow-2xl space-y-6 relative">
+        <div class="w-32 h-32 bg-yellow-100 rounded-full flex items-center justify-center mx-auto text-7xl animate-bounce">
+          🏆
+        </div>
+        <h2 class="text-4xl font-black text-slate-800">Hore! Kamu Hebat Sekali! 🎉</h2>
+        <p class="text-slate-600 font-bold text-lg">Kamu menyelesaikan petualangan di dunia ini!</p>
+
+        <div class="bg-slate-50 p-6 rounded-3xl border-2 border-slate-200 flex justify-around items-center">
+          <div>
+            <p class="text-xs font-black text-slate-400 uppercase">Skor Akhir</p>
+            <p id="resultScore" class="text-4xl font-black text-pink-500">0</p>
+          </div>
+          <div class="h-10 w-0.5 bg-slate-300"></div>
+          <div>
+            <p class="text-xs font-black text-slate-400 uppercase">Bintang Diraih</p>
+            <p id="resultStars" class="text-4xl font-black text-amber-500">⭐ 0</p>
+          </div>
+        </div>
+
+        <div id="unlockedStickerAlert" class="bg-pink-100 border-2 border-pink-300 p-4 rounded-2xl font-black text-pink-800 hidden">
+          🎁 Kamu Membuka Stiker Koleksi Baru!
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+          <button onclick="showSection('map')" class="btn-press bg-sky-400 hover:bg-sky-500 text-white font-black px-6 py-4 rounded-2xl shadow-bouncy transition text-lg">
+            🗺️ Jalur Peta Dunia
+          </button>
+          <button onclick="restartCurrentWorldQuiz()" class="btn-press bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-black px-6 py-4 rounded-2xl shadow-bouncy transition text-lg">
+            🔄 Main Lagi
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ALBUM STIKER SAYA -->
+    <section id="sec-stickers" class="hidden space-y-6 max-w-4xl mx-auto">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border-4 border-pink-300 shadow-xl space-y-6">
+        <div class="flex justify-between items-center border-b-2 border-slate-100 pb-4">
+          <div>
+            <h2 class="text-3xl font-black text-slate-800">🎨 Album Stiker Prestasi Saya</h2>
+            <p class="text-slate-500 font-bold text-sm">Selesaikan setiap dunia belajar untuk membuka seluruh 11 stiker visual!</p>
+          </div>
+          <button onclick="showSection('map')" class="btn-press bg-slate-100 text-slate-700 font-extrabold px-4 py-2 rounded-2xl">
+            Kembali
+          </button>
+        </div>
+
+        <div id="stickersGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <!-- Dynamic Stickers via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. KATALOG BUKU CERITA DIGITAL SCIENCE TECH STORE -->
+    <section id="sec-store" class="hidden space-y-8">
+      <div class="bg-gradient-to-r from-amber-400 via-orange-400 to-pink-500 rounded-3xl p-8 text-white shadow-xl flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="space-y-3 max-w-2xl text-center md:text-left">
+          <span class="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider">Official Science Tech Store Library</span>
+          <h2 class="text-4xl font-black">Buku Cerita Digital & Perpustakaan E-Book</h2>
+          <p class="font-bold text-amber-100 text-sm">Semua E-Book dan cerita interaktif sudah terintegrasi langsung di dalam aplikasi Canvas ini! Klik "Baca E-Book" untuk membuka halaman interaktif secara gratis.</p>
+        </div>
+        <a href="https://wa.me/6285974341029?text=Halo%20Science%20Tech%20Store,%20saya%20ingin%20konsultasi%20buku%20cerita%20digital" target="_blank" class="btn-press bg-white text-orange-600 font-black px-6 py-3.5 rounded-2xl shadow-bouncy flex items-center gap-2">
+          💬 Tanya Admin WhatsApp
+        </a>
+      </div>
+
+      <!-- Grid E-Book & Reader Canvas Interactive -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- EBOOK ITEM 1 -->
+        <div class="bg-white rounded-3xl p-6 border-4 border-amber-200 shadow-lg space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="w-full h-44 bg-amber-100 rounded-2xl flex flex-col items-center justify-center p-4 text-center">
+              <span class="text-6xl mb-1">🐰</span>
+              <span class="text-xs font-black text-amber-800">Buku Cerita Bergambar</span>
+            </div>
+            <span class="bg-pink-100 text-pink-700 text-xs font-black px-3 py-1 rounded-full">TK & SD Kelas 1</span>
+            <h3 class="text-xl font-black text-slate-800">Si Kelinci Pencar Bintang</h3>
+            <p class="text-xs text-slate-500 font-bold leading-relaxed">Kisah si Kelinci Cerdas mengenalkan abjad, angka, dan nilai moral. Dilengkapi fitur dibacakan oleh suara AI Smarty.</p>
+          </div>
+          <div class="space-y-2 pt-2 border-t border-slate-100">
+            <button onclick="openEbookReader('kelinci')" class="btn-press w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-black py-3 rounded-2xl text-sm shadow-bouncySm flex items-center justify-center gap-2">
+              📖 Baca Langsung di Canvas
+            </button>
+          </div>
+        </div>
+
+        <!-- EBOOK ITEM 2 -->
+        <div class="bg-white rounded-3xl p-6 border-4 border-emerald-200 shadow-lg space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="w-full h-44 bg-emerald-100 rounded-2xl flex flex-col items-center justify-center p-4 text-center">
+              <span class="text-6xl mb-1">🧪</span>
+              <span class="text-xs font-black text-emerald-800">Eksperimen Interaktif</span>
+            </div>
+            <span class="bg-emerald-100 text-emerald-800 text-xs font-black px-3 py-1 rounded-full">SD Kelas 2 - 4</span>
+            <h3 class="text-xl font-black text-slate-800">Petualangan Sains Cilik</h3>
+            <p class="text-xs text-slate-500 font-bold leading-relaxed">Panduan percobaan sains seru di rumah lengkap dengan grafik visual dan pertanyaan pemahaman kognitif.</p>
+          </div>
+          <div class="space-y-2 pt-2 border-t border-slate-100">
+            <button onclick="openEbookReader('sains')" class="btn-press w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black py-3 rounded-2xl text-sm shadow-bouncySm flex items-center justify-center gap-2">
+              🧪 Buka E-Book Sains Canvas
+            </button>
+          </div>
+        </div>
+
+        <!-- EBOOK ITEM 3 -->
+        <div class="bg-white rounded-3xl p-6 border-4 border-purple-200 shadow-lg space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="w-full h-44 bg-purple-100 rounded-2xl flex flex-col items-center justify-center p-4 text-center">
+              <span class="text-6xl mb-1">🤖</span>
+              <span class="text-xs font-black text-purple-800">Modul Logika Digital</span>
+            </div>
+            <span class="bg-purple-100 text-purple-800 text-xs font-black px-3 py-1 rounded-full">SD Kelas 5 - SMP/SMA</span>
+            <h3 class="text-xl font-black text-slate-800">Logika Coding & AI Pemula</h3>
+            <p class="text-xs text-slate-500 font-bold leading-relaxed">Modul interaktif cara membuat aplikasi web, algoritma pemikiran komputer, dan pengenalan AI dasar.</p>
+          </div>
+          <div class="space-y-2 pt-2 border-t border-slate-100">
+            <button onclick="openEbookReader('coding')" class="btn-press w-full bg-purple-600 hover:bg-purple-700 text-white font-black py-3 rounded-2xl text-sm shadow-bouncySm flex items-center justify-center gap-2">
+              💻 Pelajari Modul Digital
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. TENTANG KAMI (SCIENCE TECH STORE) -->
+    <section id="sec-about" class="hidden space-y-6 max-w-4xl mx-auto">
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border-4 border-emerald-300 shadow-xl space-y-6">
+        <div class="flex flex-col sm:flex-row items-center gap-4 border-b-2 border-slate-100 pb-6">
+          <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center text-4xl shadow-inner">
+            🏬
+          </div>
+          <div class="text-center sm:text-left">
+            <h2 class="text-3xl font-black text-slate-800">Science Tech Store</h2>
+            <p class="text-emerald-600 font-extrabold">Penyedia Media Interaktif & Buku Digital Edukasi Terlengkap</p>
+          </div>
+        </div>
+
+        <p class="text-slate-600 font-bold leading-relaxed text-base">
+          Selamat datang di <b>Science Tech Store</b>! Kami adalah pengembang media pembelajaran interaktif berbasis teknologi cerdas serta buku cerita digital yang dirancang khusus untuk meningkatkan minat belajar anak-anak dari jenjang <b>TK, SD, SMP, hingga SMA</b>.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200 text-center space-y-2">
+            <div class="text-3xl">🎮</div>
+            <h4 class="font-black text-emerald-900">Media Interaktif</h4>
+            <p class="text-xs text-slate-600 font-bold">Aplikasi web kuis interaktif, gim edukasi, dan simulasi sains visual.</p>
+          </div>
+          <div class="bg-sky-50 p-4 rounded-2xl border border-sky-200 text-center space-y-2">
+            <div class="text-3xl">📖</div>
+            <h4 class="font-black text-sky-900">Buku Cerita Digital</h4>
+            <p class="text-xs text-slate-600 font-bold">Koleksi E-Book bergambar penuh cerita moral dan pengetahuan sains.</p>
+          </div>
+          <div class="bg-purple-50 p-4 rounded-2xl border border-purple-200 text-center space-y-2">
+            <div class="text-3xl">🎓</div>
+            <h4 class="font-black text-purple-900">Multi Jenjang</h4>
+            <p class="text-xs text-slate-600 font-bold">Materi terstruktur yang disesuaikan dari jenjang TK hingga SMA.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 p-5 rounded-2xl border-2 border-slate-200 space-y-3">
+          <h4 class="font-black text-slate-800 flex items-center gap-2">
+            📍 Informasi Kontak Resmi Science Tech Store
+          </h4>
+          <ul class="space-y-2 text-sm font-bold text-slate-600">
+            <li>📲 <b>WhatsApp:</b> 085974341029</li>
+            <li>✉️ <b>Email Layanan:</b> aryendranugraha2025@gmail.com</li>
+            <li>🕒 <b>Jam Operasional:</b> Senin – Minggu, Pukul 15.00 – 20.00 WITA</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t-4 border-bananaYellow mt-12 py-6 text-center text-slate-500 font-bold text-sm">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center space-x-2">
+        <span class="text-pink-500 font-black">Kids Smart Adventure 🦉</span>
+        <span>&copy; 2026 Powered by Science Tech Store</span>
+      </div>
+      <div class="flex space-x-4 text-xs">
+        <button onclick="showSection('guide')" class="hover:text-sky-500">Petunjuk & Kontak</button>
+        <button onclick="showSection('store')" class="hover:text-amber-500">Katalog E-Book</button>
+        <button onclick="showSection('about')" class="hover:text-emerald-600">Science Tech Store</button>
+        <button onclick="openLoginModal('guru')" class="hover:text-purple-600">Portal Guru</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL SERTIFIKAT KELULUSAN (PRINTABLE PDF WITH STEMPEL) -->
+  <div id="certModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl border-4 border-yellow-400 max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative space-y-6">
+      <button onclick="closeModal('certModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-2xl font-black">✕</button>
+
+      <!-- Sertifikat Printable Area -->
+      <div id="printableCert" class="bg-gradient-to-br from-amber-50 via-white to-yellow-100 p-8 rounded-2xl border-8 border-amber-400 text-center space-y-4 shadow-inner relative overflow-hidden">
+        <p class="text-xs font-black uppercase tracking-widest text-amber-600">Sertifikat Kelulusan Resmi</p>
+        <h2 class="text-3xl sm:text-4xl font-black text-slate-800">KIDS SMART ADVENTURE</h2>
+        <p class="text-slate-600 text-xs font-bold">Diberikan Kepada Pahlawan Cilik:</p>
+        
+        <h3 id="certStudentName" class="text-3xl font-black text-pink-600 underline">Budi Ceria</h3>
+        
+        <p class="text-slate-700 font-bold text-sm max-w-md mx-auto">
+          Telah berhasil menyelesaikan tantangan kognitif di 11 Dunia Belajar Edukasi dengan prestasi yang sangat membanggakan!
+        </p>
+
+        <!-- STEMPEL EMAS RESMI SCIENCE TECH STORE -->
+        <div class="pt-4 flex justify-between items-center text-xs font-bold text-slate-500">
+          <div class="text-left">
+            <p>Tanggal: 5 November 2026</p>
+            <p>Science Tech Store Verified ID: STS-2026-KSA</p>
+          </div>
+          <div class="w-20 h-20 bg-amber-400 text-slate-900 rounded-full flex flex-col items-center justify-center text-[10px] font-black shadow-lg border-4 border-white transform rotate-12">
+            <span>OFFICIAL</span>
+            <span class="text-base">🏆</span>
+            <span>VERIFIED</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <button onclick="window.print()" class="btn-press flex-1 bg-purple-600 hover:bg-purple-700 text-white font-black py-3 rounded-2xl shadow-bouncySm">
+          🖨️ Cetak / Simpan PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL LOGIN GURU & SISWA -->
+  <div id="loginModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl border-4 border-purple-400 max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
+      <button onclick="closeModal('loginModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-2xl font-black">✕</button>
+
+      <div class="flex border-b-2 border-slate-100 mb-6">
+        <button id="tabBtnGuru" onclick="switchLoginTab('guru')" class="flex-1 py-3 font-black text-purple-600 border-b-4 border-purple-600">
+          👩‍🏫 Login Guru
+        </button>
+        <button id="tabBtnSiswa" onclick="switchLoginTab('siswa')" class="flex-1 py-3 font-black text-slate-400 border-b-4 border-transparent">
+          👦 Login Siswa
+        </button>
+      </div>
+
+      <!-- Form Guru -->
+      <form id="formGuruLogin" onsubmit="handleGuruLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-black text-slate-600 uppercase mb-1">Username Guru</label>
+          <input type="text" id="guruUsername" required placeholder="Contoh: guru" class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-4 py-3 font-bold text-slate-800 focus:border-purple-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-black text-slate-600 uppercase mb-1">Password</label>
+          <input type="password" id="guruPassword" required placeholder="Password..." class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-4 py-3 font-bold text-slate-800 focus:border-purple-500 outline-none">
+        </div>
+        <div id="guruAuthError" class="hidden text-xs font-bold text-red-500 bg-red-50 p-2 rounded-xl text-center"></div>
+
+        <div class="pt-2 flex gap-3">
+          <button type="submit" class="btn-press flex-1 bg-purple-600 hover:bg-purple-700 text-white font-black py-3 rounded-2xl shadow-bouncySm">
+            Masuk Guru
+          </button>
+          <button type="button" onclick="registerGuruAccount()" class="btn-press bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold px-4 py-3 rounded-2xl text-sm">
+            Buat Akun
+          </button>
+        </div>
+      </form>
+
+      <!-- Form Siswa -->
+      <form id="formSiswaLogin" onsubmit="handleSiswaLogin(event)" class="hidden space-y-4">
+        <div>
+          <label class="block text-xs font-black text-slate-600 uppercase mb-1">Nama Kamu:</label>
+          <input type="text" id="siswaName" required placeholder="Contoh: Budi Ceria" class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-4 py-3 font-bold text-slate-800 focus:border-yellow-500 outline-none">
+        </div>
+        <button type="submit" class="btn-press w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-black py-3.5 rounded-2xl shadow-bouncySm text-lg">
+          🚀 Langsung Petualangan!
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL PENGATURAN AI SMARTY -->
+  <div id="aiSettingsModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl border-4 border-amber-400 max-w-md w-full p-6 sm:p-8 shadow-2xl relative space-y-6">
+      <button onclick="closeModal('aiSettingsModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-2xl font-black">✕</button>
+
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-amber-400 text-white rounded-2xl flex items-center justify-center text-2xl">🦉</div>
+        <div>
+          <h3 class="text-2xl font-black text-slate-800">Pengaturan AI Smarty</h3>
+          <p class="text-xs text-slate-500 font-bold">Sesuaikan Tempo Suara Pembaca Soal</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="flex items-center justify-between font-bold text-slate-700 text-sm mb-2">
+            <span>🔊 Bacakan Otomatis (Auto-Read):</span>
+            <input type="checkbox" id="aiAutoReadToggle" onchange="toggleAutoReadSetting()" class="w-6 h-6 text-yellow-500 rounded-lg">
+          </label>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 text-sm mb-1">⚡ Kecepatan Suara Pembaca:</label>
+          <input type="range" id="aiSpeechRate" min="0.6" max="1.2" step="0.1" value="0.8" onchange="updateSpeechRateSetting()" class="w-full accent-amber-500">
+          <div class="flex justify-between text-xs text-slate-400 font-bold">
+            <span>Pelan (0.75x)</span>
+            <span>Normal</span>
+            <span>Cepat</span>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="testAiSpeech()" class="btn-press w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-black py-3 rounded-2xl shadow-bouncySm">
+        📢 Tes Suara Smarty
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL EDIT / TAMBAH SOAL GURU -->
+  <div id="questionModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl border-4 border-emerald-400 max-w-lg w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('questionModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-2xl font-black">✕</button>
+
+      <h3 id="questionModalTitle" class="text-2xl font-black text-slate-800 mb-4">Edit Soal (4 Opsi A, B, C, D)</h3>
+
+      <form id="formQuestionEditor" onsubmit="saveQuestion(event)" class="space-y-4">
+        <input type="hidden" id="editQuestionIndex" value="-1">
+        
+        <div>
+          <label class="block text-xs font-black text-slate-600 uppercase mb-1">Teks Pertanyaan Soal</label>
+          <textarea id="editQText" required rows="2" placeholder="Tuliskan soal..." class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl p-3 font-bold text-slate-800 focus:border-emerald-500 outline-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-black text-slate-600 uppercase mb-1">Visual SVG Soal</label>
+          <select id="editQVisual" class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl p-3 font-bold text-slate-800">
+            <option value="star">⭐ Bintang</option>
+            <option value="apple">🍎 Apel</option>
+            <option value="cat">🐱 Kucing</option>
+            <option value="car">🚗 Mobil</option>
+          </select>
+        </div>
+
+        <div class="space-y-2">
+          <label class="block text-xs font-black text-slate-600 uppercase">Pilihan Jawaban & Kunci (Pilih Radio untuk Jawaban Benar)</label>
+          <div class="flex items-center gap-2">
+            <input type="radio" name="correctOpt" value="0" checked class="w-5 h-5 accent-emerald-500">
+            <input type="text" id="editOpt0" required placeholder="Opsi A" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-2 text-sm font-bold">
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="radio" name="correctOpt" value="1" class="w-5 h-5 accent-emerald-500">
+            <input type="text" id="editOpt1" required placeholder="Opsi B" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-2 text-sm font-bold">
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="radio" name="correctOpt" value="2" class="w-5 h-5 accent-emerald-500">
+            <input type="text" id="editOpt2" required placeholder="Opsi C" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-2 text-sm font-bold">
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="radio" name="correctOpt" value="3" class="w-5 h-5 accent-emerald-500">
+            <input type="text" id="editOpt3" required placeholder="Opsi D" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-2 text-sm font-bold">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-black text-slate-600 uppercase mb-1">Penjelasan Singkat (Feedback)</label>
+          <input type="text" id="editQExplanation" placeholder="Contoh: Pintar! A untuk Apel." class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl p-3 font-bold text-slate-800">
+        </div>
+
+        <button type="submit" class="btn-press w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black py-3 rounded-2xl shadow-bouncySm">
+          💾 Simpan Soal
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD PORTAL GURU (WITH SEARCH & EXPORT DATA) -->
+  <section id="sec-teacher" class="hidden max-w-4xl mx-auto space-y-6">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 border-4 border-purple-400 shadow-xl space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4 border-b-2 border-slate-100 pb-4">
+        <div>
+          <h2 class="text-3xl font-black text-purple-900">👩‍🏫 Portal Kelola Soal Guru</h2>
+          <p class="text-xs font-bold text-slate-500">Atur Jumlah & Isi Soal dari 11 Dunia Belajar</p>
+        </div>
+        <div class="flex gap-2">
+          <!-- FITUR TERBARU: EKSPOR & IMPOR DATA SOAL GURU -->
+          <button onclick="exportTeacherData()" class="btn-press bg-indigo-500 hover:bg-indigo-600 text-white font-black px-3 py-2 rounded-xl text-xs">
+            📥 Ekspor JSON
+          </button>
+          <button onclick="logoutGuru()" class="btn-press bg-red-100 text-red-600 font-black px-4 py-2 rounded-2xl text-xs">
+            🚪 Keluar Guru
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-between items-center bg-purple-50 p-4 rounded-2xl border border-purple-200">
+        <div class="w-full sm:w-auto flex flex-col sm:flex-row gap-2">
+          <div>
+            <label class="block text-xs font-black text-purple-700 uppercase mb-1">Pilih Dunia Belajar:</label>
+            <select id="teacherWorldSelect" onchange="loadTeacherWorldQuestions()" class="bg-white border-2 border-purple-300 font-black text-slate-800 text-sm px-4 py-2 rounded-xl outline-none w-full">
+              <!-- Rendered via JS -->
+            </select>
+          </div>
+          <div>
+            <!-- FITUR BARU: CARI SOAL -->
+            <label class="block text-xs font-black text-purple-700 uppercase mb-1">Cari Soal:</label>
+            <input type="text" id="teacherSearchInput" onkeyup="loadTeacherWorldQuestions()" placeholder="Cari..." class="bg-white border-2 border-purple-300 font-bold text-slate-800 text-xs px-3 py-2 rounded-xl outline-none w-full">
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="generateAiQuestionsForSelectedWorld()" class="btn-press bg-amber-400 hover:bg-amber-500 text-slate-900 font-black px-4 py-2.5 rounded-xl text-xs shadow-bouncySm flex items-center gap-1">
+            🤖 AI Generator Soal
+          </button>
+          <button onclick="addNewQuestionModal()" class="btn-press bg-emerald-500 hover:bg-emerald-600 text-white font-black px-4 py-2.5 rounded-xl text-xs shadow-bouncySm">
+            ➕ Tambah Soal
+          </button>
+          <button onclick="resetDefaultQuestions()" class="btn-press bg-slate-200 text-slate-700 font-black px-3 py-2.5 rounded-xl text-xs">
+            🔄 Reset
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-black text-slate-700 text-sm mb-3">Daftar Soal Terpasang (<span id="teacherQuestionCount">0</span> Soal):</h4>
+        <div id="teacherQuestionsList" class="space-y-3 max-h-96 overflow-y-auto p-1">
+          <!-- Dynamic List via JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANDUAN LENGKAP & KONTAK NAVIGASI -->
+  <section id="sec-guide" class="hidden space-y-6 max-w-4xl mx-auto">
+    <div class="bg-white rounded-3xl p-6 sm:p-10 border-4 border-purple-300 shadow-xl space-y-6">
+      <div class="border-b-2 border-slate-100 pb-4">
+        <h2 class="text-3xl font-black text-slate-800">🧭 Panduan & Langkah-Langkah</h2>
+        <p class="text-purple-600 font-bold text-sm">Petunjuk Penggunaan Aplikasi Kids Smart Adventure</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-slate-700 font-bold text-sm">
+        <div class="bg-pink-50 p-5 rounded-2xl border-2 border-pink-200 space-y-2">
+          <h4 class="font-black text-pink-700 text-base">👦 Bagi Siswa (Anak-Anak):</h4>
+          <ol class="list-decimal list-inside space-y-1 text-xs">
+            <li>Pilih Karakter Avatar favoritmu di beranda.</li>
+            <li>Buka <b>Peta Dunia</b> dan klik dunia belajar pertama.</li>
+            <li>Klik tombol <b>"Smarty, Bacakan Soalnya!"</b> jika ingin didengarkan.</li>
+            <li>Gunakan <b>Hint (50:50)</b> jika kamu kesulitan.</li>
+            <li>Kumpulkan Bintang, Stiker, dan cetak <b>Sertifikat Kelulusan!</b></li>
+          </ol>
+        </div>
+        <div class="bg-purple-50 p-5 rounded-2xl border-2 border-purple-200 space-y-2">
+          <h4 class="font-black text-purple-700 text-base">👩‍🏫 Bagi Guru / Orang Tua:</h4>
+          <ol class="list-decimal list-inside space-y-1 text-xs">
+            <li>Klik menu <b>Portal Guru</b> di pojok kanan atas atau footer.</li>
+            <li>Login atau buat akun baru kustom sendiri.</li>
+            <li>Pilih dunia belajar yang ingin disetel isi soalnya.</li>
+            <li>Gunakan <b>AI Generator Soal</b> jika ingin membuat soal instan 1-klik.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="bg-amber-50 p-6 rounded-2xl border-2 border-amber-300 space-y-2">
+        <h4 class="font-black text-amber-800 text-base flex items-center gap-2">
+          📞 Layanan Bantuan & Bimbingan Teknis
+        </h4>
+        <p class="text-xs text-slate-600 font-bold">
+          Membutuhkan bantuan teknis, pesanan e-book, atau alat peraga edukasi tambahan? Hubungi tim Science Tech Store:
+        </p>
+        <ul class="text-xs font-black text-slate-700 space-y-1 pt-1">
+          <li>📲 <b>WhatsApp:</b> 085974341029</li>
+          <li>✉️ <b>Email Resmi:</b> aryendranugraha2025@gmail.com</li>
+          <li>🕒 <b>Jam Operasional:</b> Senin – Minggu, Pukul 15.00 – 20.00 WITA</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL INTEGRATED E-BOOK READER CANVAS -->
+  <div id="ebookReaderModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl border-4 border-amber-400 max-w-3xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] flex flex-col justify-between space-y-4">
+      <button onclick="closeModal('ebookReaderModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-2xl font-black z-10">✕</button>
+
+      <!-- Header Book -->
+      <div class="flex items-center gap-3 border-b-2 border-slate-100 pb-3">
+        <div id="ebookReaderIcon" class="w-12 h-12 bg-amber-400 text-white rounded-2xl flex items-center justify-center text-2xl font-black">📖</div>
+        <div>
+          <h3 id="ebookReaderTitle" class="text-2xl font-black text-slate-800">Judul Buku</h3>
+          <p id="ebookReaderPageIndicator" class="text-xs text-amber-600 font-extrabold">Halaman 1 dari 3</p>
+        </div>
+      </div>
+
+      <!-- Content Reader Frame -->
+      <div id="ebookReaderBody" class="flex-1 bg-amber-50/60 rounded-2xl p-6 border-2 border-amber-200 overflow-y-auto space-y-4 text-slate-800 font-bold leading-relaxed text-base sm:text-lg">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Reader Controls -->
+      <div class="flex items-center justify-between pt-2 border-t border-slate-100 gap-3">
+        <button onclick="speakEbookPage()" class="btn-press bg-pink-500 hover:bg-pink-600 text-white font-black px-4 py-2.5 rounded-2xl text-xs sm:text-sm flex items-center gap-2 shadow-bouncySm">
+          🔊 Bacakan Halaman Ini (AI)
+        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="prevEbookPage()" id="btnPrevPage" class="btn-press bg-slate-200 text-slate-700 font-black px-4 py-2.5 rounded-2xl text-sm">⬅️ Mundur</button>
+          <button onclick="nextEbookPage()" id="btnNextPage" class="btn-press bg-amber-400 hover:bg-amber-500 text-slate-900 font-black px-4 py-2.5 rounded-2xl text-sm shadow-bouncySm">Maju ➡️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    /* SYSTEM STATE & DATABASE INITIALIZATION */
+    let teachersDb = JSON.parse(localStorage.getItem('ks_teachers')) || [{ username: 'guru', password: '123' }];
+    let currentUser = { name: 'Petualang Cilik', role: 'siswa' };
+    
+    let aiSpeechSettings = JSON.parse(localStorage.getItem('ks_ai_settings')) || {
+      autoRead: true,
+      rate: 0.8
+    };
+
+    /* SYSTEM STATE PIPELINE TERBARU (XP, NYAWA, BGM) */
+    let userXp = parseInt(localStorage.getItem('ks_xp')) || 0;
+    let isBgmPlaying = false;
+    let audioCtx = null;
+    let quizLives = 3;
+
+    /* 1. DATA WORLDS & SOAL DEFAULT (11 DUNIA) */
+    const DEFAULT_WORLDS = [
+      {
+        id: 'huruf',
+        name: 'Dunia Huruf',
+        icon: '🔤',
+        color: 'bg-pink-400',
+        level: 'TK - Abjad & Vokal',
+        badgeColor: 'bg-pink-500',
+        questions: [
+          { text: 'Manakah gambar Apel yang diawali huruf A?', visual: 'apple', options: ['Apel 🍎', 'Bebek 🦆', 'Cacing 🐛', 'Domba 🐑'], correct: 0, exp: 'Pintar! A untuk Apel!' },
+          { text: 'Huruf apakah ini: "B"?', visual: 'star', options: ['A', 'B', 'C', 'D'], correct: 1, exp: 'Hebat! Itu adalah huruf B.' },
+          { text: 'Kata "KUCING" diawali dengan huruf apa?', visual: 'cat', options: ['K', 'L', 'M', 'N'], correct: 0, exp: 'Luar biasa! K untuk Kucing.' },
+          { text: 'Lengkapi abjad ini: A, B, C, ...', visual: 'star', options: ['D', 'E', 'F', 'G'], correct: 0, exp: 'Tepat sekali! D setelah C.' },
+          { text: 'Huruf Vokal pada kata "BOLA" adalah...', visual: 'star', options: ['B & L', 'O & A', 'B & O', 'L & A'], correct: 1, exp: 'Pintar! Huruf vokal yaitu O dan A.' },
+          { text: 'Manakah benda yang diawali huruf "M"?', visual: 'car', options: ['Mobil 🚗', 'Bintang ⭐️', 'Apel 🍎', 'Kucing 🐱'], correct: 0, exp: 'Hebat! M untuk Mobil.' },
+          { text: 'Huruf setelah "X" adalah huruf...', visual: 'star', options: ['Y', 'Z', 'W', 'V'], correct: 0, exp: 'Benar sekali! Y adalah setelah X.' },
+          { text: 'Huruf kapital dari "g" adalah...', visual: 'star', options: ['G', 'H', 'F', 'J'], correct: 0, exp: 'Pintar! G kapital dari g.' },
+          { text: 'Manakah yang merupakan huruf KAPITAL?', visual: 'star', options: ['a', 'b', 'R', 'm'], correct: 2, exp: 'Benar! R adalah huruf kapital.' },
+          { text: 'Huruf terakhir dalam abjad bahasa Indonesia adalah...', visual: 'star', options: ['X', 'Y', 'Z', 'W'], correct: 2, exp: 'Hebat! Z adalah huruf terakhir.' }
+        ]
+      },
+      {
+        id: 'angka',
+        name: 'Dunia Angka',
+        icon: '🔢',
+        color: 'bg-yellow-400',
+        level: 'TK - Berhitung 1-10',
+        badgeColor: 'bg-yellow-500',
+        questions: [
+          { text: 'Berapa jumlah apel di sini: 🍎 🍎 🍎?', visual: 'apple', options: ['2', '3', '4', '5'], correct: 1, exp: 'Benar! Ada 3 buah apel.' },
+          { text: 'Hasil dari 1 + 1 adalah...', visual: 'star', options: ['1', '2', '3', '4'], correct: 1, exp: 'Pintar! 1 + 1 = 2.' },
+          { text: 'Angka berapakah ini: "5"?', visual: 'star', options: ['Tiga', 'Empat', 'Lima', 'Enam'], correct: 2, exp: 'Tepat! Itu adalah angka Lima.' },
+          { text: 'Jika kamu punya 2 mobil lalu ditambah 2 mobil lagi, totalnya berapa?', visual: 'car', options: ['2', '3', '4', '5'], correct: 2, exp: 'Luar biasa! 2 + 2 = 4.' },
+          { text: 'Hitung bintang ini: ⭐️ ⭐️ ⭐️ ⭐️ ⭐️', visual: 'star', options: ['3', '4', '5', '6'], correct: 2, exp: 'Hebat! Ada 5 bintang.' },
+          { text: 'Angka yang lebih besar dari 7 adalah...', visual: 'star', options: ['5', '6', '8', '4'], correct: 2, exp: 'Tepat! 8 lebih besar dari 7.' },
+          { text: 'Hasil dari 5 - 2 adalah...', visual: 'apple', options: ['1', '2', '3', '4'], correct: 2, exp: 'Pintar! 5 dikurang 2 = 3.' },
+          { text: 'Sebelum angka 10 adalah angka...', visual: 'star', options: ['8', '9', '11', '7'], correct: 1, exp: 'Benar! 9 sebelum 10.' },
+          { text: 'Jika ada 4 kucing lalu 1 pergi, sisanya ada...', visual: 'cat', options: ['2', '3', '4', '5'], correct: 1, exp: 'Hebat! 4 - 1 = 3.' },
+          { text: 'Hasil dari 3 + 3 adalah...', visual: 'star', options: ['5', '6', '7', '8'], correct: 1, exp: 'Luar biasa! 3 + 3 = 6.' }
+        ]
+      },
+      {
+        id: 'warna',
+        name: 'Dunia Warna',
+        icon: '🎨',
+        color: 'bg-emerald-400',
+        level: 'TK - Warna Primer & Sekunder',
+        badgeColor: 'bg-emerald-500',
+        questions: [
+          { text: 'Warna apakah buah Apel ini: 🍎?', visual: 'apple', options: ['Merah', 'Biru', 'Kuning', 'Hijau'], correct: 0, exp: 'Pintar! Apel berwarna Merah.' },
+          { text: 'Warna apakah Daun pada pohon?', visual: 'star', options: ['Merah', 'Kuning', 'Hijau', 'Ungu'], correct: 2, exp: 'Benar! Daun berwarna Hijau.' },
+          { text: 'Campuran warna Merah dan Kuning menghasilkan warna...', visual: 'star', options: ['Hijau', 'Orange / Jingga', 'Ungu', 'Cokelat'], correct: 1, exp: 'Luar biasa! Jadi warna Orange.' },
+          { text: 'Warna Pisang yang matang adalah...', visual: 'star', options: ['Kuning', 'Biru', 'Hitam', 'Pink'], correct: 0, exp: 'Tepat! Pisang matang berwarna Kuning.' },
+          { text: 'Warna Langit di siang hari yang cerah adalah...', visual: 'star', options: ['Biru', 'Merah', 'Hijau', 'Hitam'], correct: 0, exp: 'Hebat! Langit berwarna Biru.' },
+          { text: 'Campuran Merah + Biru menghasilkan warna...', visual: 'star', options: ['Hijau', 'Ungu', 'Kuning', 'Putih'], correct: 1, exp: 'Benar! Merah + Biru = Ungu.' },
+          { text: 'Warna Rumput taman adalah...', visual: 'star', options: ['Hijau', 'Merah', 'Pink', 'Biru'], correct: 0, exp: 'Pintar! Rumput berwarna Hijau.' },
+          { text: 'Warna Bintang di malam hari sering digambarkan berwarna...', visual: 'star', options: ['Kuning / Emas', 'Biru Tua', 'Merah', 'Hitam'], correct: 0, exp: 'Hebat! Bintang berwarna Kuning.' },
+          { text: 'Mobil pemadam kebakaran biasanya berwarna...', visual: 'car', options: ['Merah', 'Hijau', 'Biru', 'Ungu'], correct: 0, exp: 'Benar! Berwarna Merah.' },
+          { text: 'Warna Awan cerah adalah...', visual: 'star', options: ['Putih', 'Hitam', 'Hijau', 'Merah'], correct: 0, exp: 'Tepat sekali! Awan cerah berwarna Putih.' }
+        ]
+      },
+      {
+        id: 'bentuk',
+        name: 'Dunia Bentuk',
+        icon: '📐',
+        color: 'bg-purple-400',
+        level: 'TK - Geometri Dasar',
+        badgeColor: 'bg-purple-500',
+        questions: [
+          { text: 'Roda mobil berbentuk...', visual: 'car', options: ['Lingkaran', 'Segitiga', 'Persegi', 'Bintang'], correct: 0, exp: 'Pintar! Roda berbentuk Lingkaran.' },
+          { text: 'Bentuk yang memiliki 3 sudut adalah...', visual: 'star', options: ['Segitiga', 'Persegi', 'Lingkaran', 'Oval'], correct: 0, exp: 'Benar! Segitiga punya 3 sudut.' },
+          { text: 'Buku pelajaran biasanya berbentuk...', visual: 'star', options: ['Persegi Panjang', 'Lingkaran', 'Segitiga', 'Bintang'], correct: 0, exp: 'Hebat! Persegi Panjang.' },
+          { text: 'Bentuk Bintang di langit memiliki banyak...', visual: 'star', options: ['Sudut / Sudut Runcing', 'Garis Lurus', 'Lingkaran', 'Lengkung'], correct: 0, exp: 'Tepat sekali!' },
+          { text: 'Bola basket berbentuk...', visual: 'star', options: ['Lingkaran / Bola', 'Persegi', 'Segitiga', 'Kubus'], correct: 0, exp: 'Pintar! Bola berbentuk bulat/lingkaran.' },
+          { text: 'Atap rumah umumnya berbentuk...', visual: 'star', options: ['Segitiga', 'Lingkaran', 'Oval', 'Bintang'], correct: 0, exp: 'Benar! Atap berbentuk Segitiga.' },
+          { text: 'Bentuk tempat tidur adalah...', visual: 'star', options: ['Persegi Panjang', 'Lingkaran', 'Segitiga', 'Bintang'], correct: 0, exp: 'Hebat! Persegi Panjang.' },
+          { text: 'Benda yang berbentuk Lingkaran adalah...', visual: 'star', options: ['Koin / Uang Logam', 'Pintu', 'Kotak Pensil', 'Buku'], correct: 0, exp: 'Pintar! Koin berbentuk lingkaran.' },
+          { text: 'Bentuk telur ayam mirip dengan...', visual: 'star', options: ['Oval / Lonjong', 'Segitiga', 'Persegi', 'Bintang'], correct: 0, exp: 'Benar! Telur berbentuk Oval.' },
+          { text: 'Kotak kado yang sama panjang sisinya berbentuk...', visual: 'star', options: ['Persegi / Kubus', 'Segitiga', 'Lingkaran', 'Oval'], correct: 0, exp: 'Tepat sekali!' }
+        ]
+      },
+      {
+        id: 'hewan',
+        name: 'Dunia Hewan',
+        icon: '🦁',
+        color: 'bg-amber-400',
+        level: 'SD 1 - Fauna & Suara',
+        badgeColor: 'bg-amber-500',
+        questions: [
+          { text: 'Hewan apakah ini yang mengeong: "Meong meong"?', visual: 'cat', options: ['Kucing 🐱', 'Anjing 🐶', 'Sapi 🐮', 'Bebek 🦆'], correct: 0, exp: 'Pintar! Kucing suaranya Meong!' },
+          { text: 'Hewan yang bisa terbang di udara adalah...', visual: 'star', options: ['Burung 🐦', 'Ikan 🐟', 'Kucing 🐱', 'Kelinci 🐰'], correct: 0, exp: 'Benar! Burung punya sayap untuk terbang.' },
+          { text: 'Hewan yang hidup di air dan berenang adalah...', visual: 'star', options: ['Ikan 🐟', 'Kambing 🐐', 'Ayam 🐔', 'Kucing 🐱'], correct: 0, exp: 'Hebat! Ikan berenang di air.' },
+          { text: 'Hewan pembawa wortel yang suka melompat adalah...', visual: 'star', options: ['Kelinci 🐰', 'Gajah 🐘', 'Singa 🦁', 'Sapi 🐮'], correct: 0, exp: 'Tepat! Kelinci suka wortel.' },
+          { text: 'Raja hutan bersuara auman keras adalah...', visual: 'star', options: ['Singa 🦁', 'Kucing 🐱', 'Bebek 🦆', 'Ayam 🐔'], correct: 0, exp: 'Pintar! Singa adalah raja hutan.' },
+          { text: 'Suara Bebek adalah...', visual: 'star', options: ['Kwek Kwek', 'Moo Moo', 'Guk Guk', 'Mbek Mbek'], correct: 0, exp: 'Hebat! Bebek berbunyi Kwek Kwek.' },
+          { text: 'Hewan berleher sangat panjang adalah...', visual: 'star', options: ['Jerapah 🦒', 'Gajah 🐘', 'Kucing 🐱', 'Kelinci 🐰'], correct: 0, exp: 'Benar! Jerapah lehernya panjang.' },
+          { text: 'Hewan bertubuh besar dengan belalai panjang adalah...', visual: 'star', options: ['Gajah 🐘', 'Singa 🦁', 'Ayam 🐔', 'Kambing 🐐'], correct: 0, exp: 'Tepat! Gajah punya belalai.' },
+          { text: 'Hewan penghasil susu yang berbunyi "Moo" adalah...', visual: 'star', options: ['Sapi 🐮', 'Kuda 🐴', 'Kucing 🐱', 'Kambing 🐐'], correct: 0, exp: 'Pintar! Sapi menghasilkan susu.' },
+          { text: 'Ayam jantan berkokok pada waktu...', visual: 'star', options: ['Pagi Hari 🌅', 'Malam Hari 🌙', 'Tidur', 'Hujan'], correct: 0, exp: 'Luar biasa! Ayam berkokok di pagi hari.' }
+        ]
+      },
+      {
+        id: 'puzzle',
+        name: 'Dunia Puzzle',
+        icon: '🧩',
+        color: 'bg-sky-400',
+        level: 'SD 1 - Spasial & Pasangan',
+        badgeColor: 'bg-sky-500',
+        questions: [
+          { text: 'Pasangan dari Kaki adalah...', visual: 'star', options: ['Sepatu 👟', 'Topi 🧢', 'Kacamata 👓', 'Sarung Tangan 🧤'], correct: 0, exp: 'Pintar! Sepatu dipakai di Kaki.' },
+          { text: 'Pasangan dari Sendok saat makan adalah...', visual: 'star', options: ['Garpu 🍴', 'Pena 🖊️', 'Sapu 🧹', 'Topi 🧢'], correct: 0, exp: 'Benar! Sendok dan Garpu.' },
+          { text: 'Pasangan dari Sikat Gigi adalah...', visual: 'star', options: ['Pasta Gigi 🪥', 'Sabun Cuci 🧼', 'Handuk 🧴', 'Sisir 🪮'], correct: 0, exp: 'Hebat! Sikat gigi dan Pasta Gigi.' },
+          { text: 'Benda yang dipakai di Kepala saat panas adalah...', visual: 'star', options: ['Topi 🧢', 'Sepatu 👟', 'Kaos Kaki 🧦', 'Celana 👖'], correct: 0, exp: 'Tepat! Topi untuk kepala.' },
+          { text: 'Jika hujan turun, kita membawa...', visual: 'star', options: ['Payung ☂️', 'Kipas 🪭', 'Kacamata Hitam 🕶️', 'Buku 📖'], correct: 0, exp: 'Pintar! Payung melindungi dari hujan.' },
+          { text: 'Kunci dipasangkan dengan...', visual: 'star', options: ['Gembok 🔒', 'Sepatu 👟', 'Pena 🖊️', 'Meja 🛋️'], correct: 0, exp: 'Hebat! Kunci untuk Gembok.' },
+          { text: 'Ikan hidup di air, Burung terbang di...', visual: 'star', options: ['Udara / Langit 🌤️', 'Tanah 🪵', 'Batu 🪨', 'Api 🔥'], correct: 0, exp: 'Benar! Burung di Udara.' },
+          { text: 'Lampu digunakan untuk membuat ruangan...', visual: 'star', options: ['Terang 💡', 'Gelap 🌙', 'Basah 💧', 'Dingin ❄️'], correct: 0, exp: 'Tepat! Lampu menerangi ruangan.' },
+          { text: 'Pasangan Pensil untuk menulis adalah...', visual: 'star', options: ['Kertas / Buku 📝', 'Sepatu 👟', 'Sendok 🥄', 'Pintu 🚪'], correct: 0, exp: 'Pintar! Menulis pensil di atas kertas.' },
+          { text: 'Jam dinding digunakan untuk melihat...', visual: 'star', options: ['Waktu ⏰', 'Warna 🎨', 'Makanan 🍎', 'Suara 🎵'], correct: 0, exp: 'Luar biasa! Jam untuk melihat waktu.' }
+        ]
+      },
+      {
+        id: 'kreativitas',
+        name: 'Dunia Kreativitas',
+        icon: '🎨',
+        color: 'bg-pink-400',
+        level: 'SD 1 - Seni & Warna',
+        badgeColor: 'bg-pink-500',
+        questions: [
+          { text: 'Alat yang digunakan untuk mewarnai gambar adalah...', visual: 'star', options: ['Krayon / Pensil Warna 🖍️', 'Sendok 🥄', 'Sapu 🧹', 'Penggaris 📏'], correct: 0, exp: 'Pintar! Mewarnai memakai krayon.' },
+          { text: 'Alat untuk menggunting kertas adalah...', visual: 'star', options: ['Gunting ✂️', 'Pensil ✏️', 'Penghapus 🧼', 'Lem 🧴'], correct: 0, exp: 'Benar! Gunting untuk memotong kertas.' },
+          { text: 'Alat untuk merekatkan kertas adalah...', visual: 'star', options: ['Lem 🧴', 'Gunting ✂️', 'Penggaris 📏', 'Penghapus 🧼'], correct: 0, exp: 'Hebat! Lem merekatkan kertas.' },
+          { text: 'Pelangi memiliki warna yang...', visual: 'star', options: ['Warna-warni Indah 🌈', 'Hitam saja ⬛', 'Putih saja ⬜', 'Gelap 🌑'], correct: 0, exp: 'Tepat! Pelangi warna-warni indah.' },
+          { text: 'Menari diiringi oleh bunyi...', visual: 'star', options: ['Musik / Lagu 🎵', 'Angin 💨', 'Hujan 🌧️', 'Tidur 💤'], correct: 0, exp: 'Pintar! Menari diiringi musik.' },
+          { text: 'Kertas menggambar disebut...', visual: 'star', options: ['Buku Gambar 🎨', 'Buku Kamus 📚', 'Koran 📰', 'Meja 🛋️'], correct: 0, exp: 'Hebat! Menggambar di buku gambar.' },
+          { text: 'Alat untuk menggambar garis lurus adalah...', visual: 'star', options: ['Penggaris 📏', 'Gunting ✂️', 'Krayon 🖍️', 'Kuasa 🖌️'], correct: 0, exp: 'Benar! Penggaris untuk garis lurus.' },
+          { text: 'Melipat kertas menjadi bentuk mainan disebut seni...', visual: 'star', options: ['Origami 📄', 'Melukis 🖌️', 'Menyanyi 🎤', 'Menari 💃'], correct: 0, exp: 'Pintar! Seni melipat kertas adalah Origami.' },
+          { text: 'Warna pelangi pertama di bagian atas adalah...', visual: 'star', options: ['Merah 🔴', 'Hijau 🟢', 'Ungu 🟣', 'Hitam ⬛'], correct: 0, exp: 'Hebat! Merah warna atas pelangi.' },
+          { text: 'Penyanyi menghasilkan karya berupa...', visual: 'star', options: ['Lagu Indah 🎤', 'Lukisan 🖼️', 'Masakan 🍲', 'Rumah 🏠'], correct: 0, exp: 'Luar biasa! Penyanyi menyanyikan lagu.' }
+        ]
+      },
+      {
+        id: 'logika',
+        name: 'Dunia Logika',
+        icon: '🧠',
+        color: 'bg-purple-400',
+        level: 'SD 1 - Penalaran Cerdas',
+        badgeColor: 'bg-purple-500',
+        questions: [
+          { text: 'Es batu terasa dingin, Api terasa...', visual: 'star', options: ['Panas 🔥', 'Basah 💧', 'Manis 🍬', 'Empuk ☁️'], correct: 0, exp: 'Pintar! Api terasa panas.' },
+          { text: 'Jika hari mendung dan berawan gelap, sebentar lagi akan...', visual: 'star', options: ['Hujan 🌧️', 'Panas Terik ☀️', 'Malam 🌙', 'Salju ❄️'], correct: 0, exp: 'Benar! Mendung tanda akan hujan.' },
+          { text: 'Gajah tubuhnya besar, Semut tubuhnya...', visual: 'star', options: ['Kecil 🐜', 'Panjang 🦒', 'Tinggi 🏢', 'Berat 🏋️'], correct: 0, exp: 'Hebat! Semut tubuhnya kecil.' },
+          { text: 'Siang hari terang karena Matahari, Malam hari terang karena...', visual: 'star', options: ['Bulan & Bintang 🌙', 'Awan ☁️', 'Pelangi 🌈', 'Pohon 🌳'], correct: 0, exp: 'Tepat! Bulan & Bintang di malam hari.' },
+          { text: 'Mana yang bergerak paling CEPAT?', visual: 'car', options: ['Pesawat Terbang ✈️', 'Siput 🐌', 'Kura-kura 🐢', 'Sepeda 🚲'], correct: 0, exp: 'Pintar! Pesawat paling cepat.' },
+          { text: 'Ibu membeli apel. Jika apel dimakan, apelnya akan...', visual: 'apple', options: ['Berkurang / Habis 🍎', 'Bertambah ➕', 'Jadi Banyak 📈', 'Terbang ✈️'], correct: 0, exp: 'Benar! Apel berkurang jika dimakan.' },
+          { text: 'Keluar rumah saat hujan harus menggunakan...', visual: 'star', options: ['Payung / Jas Hujan ☂️', 'Kipas 🪭', 'Kacamata Hitam 🕶️', 'Handuk 🧴'], correct: 0, exp: 'Hebat! Menggunakan payung.' },
+          { text: 'Garam rasanya asin, Gula rasanya...', visual: 'star', options: ['Manis 🍬', 'Pahit ☕', 'Asam 🍋', 'Pedas 🌶️'], correct: 0, exp: 'Pintar! Gula rasanya manis.' },
+          { text: 'Pohon tumbuh tinggi ke atas, Akar tumbuh ke...', visual: 'star', options: ['Bawah / Tanah 🪵', 'Atas ☁️', 'Samping ↔️', 'Udara 🌤️'], correct: 0, exp: 'Benar! Akar menembus ke dalam tanah.' },
+          { text: 'Pintu rumah dibeli kunci agar...', visual: 'star', options: ['Aman 🔒', 'Rusak 💥', 'Kotor 🧹', 'Hilang ❓'], correct: 0, exp: 'Luar biasa! Dikunci agar rumah aman.' }
+        ]
+      },
+      {
+        id: 'sains',
+        name: 'Dunia Sains',
+        icon: '🧪',
+        color: 'bg-emerald-400',
+        level: 'SD 1 - Alam & Lingkungan',
+        badgeColor: 'bg-emerald-500',
+        questions: [
+          { text: 'Benda yang menyinari bumi di siang hari adalah...', visual: 'star', options: ['Matahari ☀️', 'Bulan 🌙', 'Lampu 💡', 'Bintang ⭐️'], correct: 0, exp: 'Pintar! Matahari terbit di siang hari.' },
+          { text: 'Tanaman membutuhkan air dan sinar matahari untuk...', visual: 'star', options: ['Tumbuh Subur 🪴', 'Mati 🥀', 'Tidur 💤', 'Bicara 🗣️'], correct: 0, exp: 'Benar! Agar tanaman tumbuh subur.' },
+          { text: 'Manusia bernapas menghirup...', visual: 'star', options: ['Udara / Oksigen 🌬️', 'Air 💧', 'Tanah 🪵', 'Makanan 🍎'], correct: 0, exp: 'Hebat! Manusia menghirup udara.' },
+          { text: 'Benda cair yang kita minum sehari-hari adalah...', visual: 'star', options: ['Air Putih 💧', 'Batu 🪨', 'Kayu 🪵', 'Kertas 📄'], correct: 0, exp: 'Tepat! Air putih sangat sehat.' },
+          { text: 'Bagian tubuh untuk melihat adalah...', visual: 'star', options: ['Mata 👀', 'Telinga 👂', 'Hidung 👃', 'Tangan ✋'], correct: 0, exp: 'Pintar! Mata untuk melihat.' },
+          { text: 'Bagian tubuh untuk mendengarkan musik adalah...', visual: 'star', options: ['Telinga 👂', 'Mata 👀', 'Mulut 👄', 'Kaki 🦶'], correct: 0, exp: 'Benar! Telinga untuk mendengar.' },
+          { text: 'Batu termasuk benda...', visual: 'star', options: ['Padat 🪨', 'Cair 💧', 'Gas 💨', 'Asap 🌫️'], correct: 0, exp: 'Hebat! Batu adalah benda padat.' },
+          { text: 'Air yang dipanaskan terus-menerus akan...', visual: 'star', options: ['Mendidih & Menguap ♨️', 'Membeku 🧊', 'Jadi Es ❄️', 'Jadi Batu 🪨'], correct: 0, exp: 'Pintar! Air dipanaskan akan mendidih.' },
+          { text: 'Burung bernapas dan berkembang biak dengan bertelur. Burung adalah makhluk...', visual: 'star', options: ['Hidup 🐦', 'Mati 🪨', 'Benda 🤖', 'Robot 🦾'], correct: 0, exp: 'Benar! Burung makhluk hidup.' },
+          { text: 'Saat malam hari udara terasa lebih...', visual: 'star', options: ['Sejuk / Dingin 🌙', 'Panas Terik ☀️', 'Silau ⚡', 'Kering 🏜️'], correct: 0, exp: 'Luar biasa! Malam hari lebih sejuk.' }
+        ]
+      },
+      {
+        id: 'informatif',
+        name: 'Dunia Informatif',
+        icon: '💡',
+        color: 'bg-amber-400',
+        level: 'SD 1 - Pengetahuan Umum',
+        badgeColor: 'bg-amber-500',
+        questions: [
+          { text: 'Bendera negara Indonesia berwarna...', visual: 'star', options: ['Merah Putih 🇮🇩', 'Biru Putih 🔵', 'Hijau Kuning 🟢', 'Hitam Putih ⬛'], correct: 0, exp: 'Pintar! Merah Putih bendera kita.' },
+          { text: 'Tempat untuk belajar bersama guru dan teman adalah...', visual: 'star', options: ['Sekolah 🏫', 'Passar 🛒', 'Stasiun 🚉', 'Taman 🏞️'], correct: 0, exp: 'Benar! Belajar di Sekolah.' },
+          { text: 'Siapakah yang mengendarai Pesawat Terbang?', visual: 'star', options: ['Pilot 👨‍✈️', 'Masinis 👨‍✈️', 'Sopir 👨‍✈️', 'Nakhoda 👨‍✈️'], correct: 0, exp: 'Hebat! Pilot mengendarai pesawat.' },
+          { text: 'Tempat berobat saat kita sakit adalah...', visual: 'star', options: ['Rumah Sakit / Puskesmas 🏥', 'Pasar 🛒', 'Sekolah 🏫', 'Taman 🏞️'], correct: 0, exp: 'Tepat! Berobat ke Rumah Sakit.' },
+          { text: 'Presiden pertama Republik Indonesia adalah...', visual: 'star', options: ['Ir. Soekarno 🇮🇩', 'B.J. Habibie', 'Jokowi', 'KHD'], correct: 0, exp: 'Pintar! Ir. Soekarno.' },
+          { text: 'Alat transportasi yang berjalan di atas rel adalah...', visual: 'star', options: ['Kereta Api 🚆', 'Mobil 🚗', 'Kapal 🚢', 'Sepeda 🚲'], correct: 0, exp: 'Benar! Kereta berjalan di rel.' },
+          { text: 'Ibu kota negara Indonesia saat ini adalah...', visual: 'star', options: ['Jakarta / IKN 🇮🇩', 'Surabaya', 'Bandung', 'Medan'], correct: 0, exp: 'Hebat! Jakarta / IKN.' },
+          { text: 'Jumlah hari dalam satu minggu adalah...', visual: 'star', options: ['7 Hari 📅', '5 Hari', '10 Hari', '12 Hari'], correct: 0, exp: 'Pintar! Ada 7 hari dalam 1 minggu.' },
+          { text: 'Hari pertama dalam satu minggu adalah hari...', visual: 'star', options: ['Senin 🗓️', 'Sabtu', 'Minggu', 'Jumat'], correct: 0, exp: 'Benar! Hari Senin.' },
+          { text: 'Lambang negara Indonesia adalah burung...', visual: 'star', options: ['Garuda 🦅', 'Elang 🦅', 'Merpati 🕊️', 'Kakatua 🦜'], correct: 0, exp: 'Luar biasa! Burung Garuda.' }
+        ]
+      },
+      {
+        id: 'coding',
+        name: 'Dunia Coding',
+        icon: '💻',
+        color: 'bg-sky-400',
+        level: 'SD 1 - Logika Algoritma',
+        badgeColor: 'bg-sky-500',
+        questions: [
+          { text: 'Perintah "MAJU 1 LANGKAH" membuat karakter...', visual: 'star', options: ['Maju Ke Depan 🏃', 'Mundur 🚶', 'Diam 🧍', 'Tidur 💤'], correct: 0, exp: 'Pintar! Maju ke depan.' },
+          { text: 'Urutan langkah-langkah untuk menyelesaikan tugas dinamakan...', visual: 'star', options: ['Algoritma 🧩', 'Lagu 🎵', 'Gambar 🎨', 'Puisi 📜'], correct: 0, exp: 'Benar! Disebut Algoritma.' },
+          { text: 'Jika ada halangan rintangan di depan, langkah karakter adalah...', visual: 'star', options: ['Melompat / Belok 🦘', 'Menabrak 💥', 'Tidur 💤', 'Mundur 🚶'], correct: 0, exp: 'Hebat! Belok atau melompat.' },
+          { text: 'Simbol panah ➡️ artinya karakter harus belok ke...', visual: 'star', options: ['Kanan ➡️', 'Kiri ⬅️', 'Atas ⬆️', 'Bawah ⬇️'], correct: 0, exp: 'Tepat! Panah kanan.' },
+          { text: 'Perintah "REPEAT 3 KALI" artinya gerakan diulang sebanyak...', visual: 'star', options: ['3 Kali 🔁', '1 Kali', '5 Kali', '0 Kali'], correct: 0, exp: 'Pintar! Diulang 3 kali.' },
+          { text: 'Komputer membutuhkan perintah tertulis yang disebut...', visual: 'star', options: ['Kode / Program 💻', 'Makanan 🍎', 'Air 💧', 'Batu 🪨'], correct: 0, exp: 'Benar! Disebut Kode atau Program.' },
+          { text: 'Jika (IF) tombol ditekan, MAKA (THEN) lampu akan...', visual: 'star', options: ['Menyala 💡', 'Mati 🌑', 'Pecah 💥', 'Hilang ❓'], correct: 0, exp: 'Hebat! Lampu menyala.' },
+          { text: 'Mencari kesalahan pada kode komputer disebut...', visual: 'star', options: ['Debugging 🐛', 'Mewarnai 🎨', 'Menyanyi 🎤', 'Menari 💃'], correct: 0, exp: 'Pintar! Disebut Debugging.' },
+          { text: 'Aplikasi gim dibuat oleh seorang...', visual: 'star', options: ['Programmer / Developer 👨‍💻', 'Dokter 👨‍⚕️', 'Pilot 👨‍✈️', 'Petani 👨‍🌾'], correct: 0, exp: 'Benar! Dibuat oleh Programmer.' },
+          { text: 'Robot bisa bergerak karena diberikan perintah...', visual: 'star', options: ['Coding / Program 🤖', 'Permen 🍬', 'Air 💧', 'Buku 📖'], correct: 0, exp: 'Luar biasa! Robot digerakkan oleh Coding.' }
+        ]
+      }
+    ];
+
+    /* STIKER DATABASE */
+    const STICKER_DATABASE = {
+      huruf: { name: 'Stiker Burung Pintar', svg: '🦜' },
+      angka: { name: 'Stiker Bintang Emas', svg: '⭐' },
+      warna: { name: 'Stiker Kuas Ajaib', svg: '🖌️' },
+      bentuk: { name: 'Stiker Mahkota Ceria', svg: '👑' },
+      hewan: { name: 'Stiker Singa Berani', svg: '🦁' },
+      puzzle: { name: 'Stiker Peta Harta', svg: '🗺️' },
+      kreativitas: { name: 'Stiker Pelangi Indah', svg: '🌈' },
+      logika: { name: 'Stiker Otak Super', svg: '🧠' },
+      sains: { name: 'Stiker Roket Angkasa', svg: '🚀' },
+      informatif: { name: 'Stiker Piala Juara', svg: '🏆' },
+      coding: { name: 'Stiker Robot Cerdas', svg: '🤖' }
+    };
+
+    /* GLOBAL APP STATE */
+    let appWorlds = [];
+    let unlockedStickers = [];
+    let totalStars = 0;
+    let currentWorldId = null;
+    let currentQuestions = [];
+    let currentQuizIndex = 0;
+    let currentScore = 0;
+
+    /* INITIALIZATION ON WINDOW LOAD */
+    window.onload = function() {
+      loadDataFromStorage();
+      updateUserStatusNav();
+      updateDashboardStats();
+      renderMapRoute();
+      renderStickersAlbum();
+      populateTeacherWorldSelect();
+      loadTeacherWorldQuestions();
+      initScratchpadCanvas();
+    };
+
+    function saveDataToStorage() {
+      localStorage.setItem('ks_worlds', JSON.stringify(appWorlds));
+      localStorage.setItem('ks_stickers', JSON.stringify(unlockedStickers));
+      localStorage.setItem('ks_stars', totalStars);
+      localStorage.setItem('ks_teachers', JSON.stringify(teachersDb));
+      localStorage.setItem('ks_ai_settings', JSON.stringify(aiSpeechSettings));
+      localStorage.setItem('ks_xp', userXp);
+      updateDashboardStats();
+    }
+
+    function loadDataFromStorage() {
+      const savedWorlds = localStorage.getItem('ks_worlds');
+      appWorlds = savedWorlds ? JSON.parse(savedWorlds) : JSON.parse(JSON.stringify(DEFAULT_WORLDS));
+      
+      const savedStickers = localStorage.getItem('ks_stickers');
+      unlockedStickers = savedStickers ? JSON.parse(savedStickers) : [];
+      
+      totalStars = parseInt(localStorage.getItem('ks_stars')) || 0;
+      userXp = parseInt(localStorage.getItem('ks_xp')) || 0;
+    }
+
+    function updateDashboardStats() {
+      document.getElementById('dashStars').innerText = totalStars;
+      document.getElementById('dashTrophies').innerText = unlockedStickers.length;
+      document.getElementById('dashStickers').innerText = `${unlockedStickers.length} / ${appWorlds.length}`;
+
+      const lvl = Math.floor(userXp / 50) + 1;
+      document.getElementById('dashLevel').innerText = `Lvl ${lvl} (${userXp} XP)`;
+
+      // Update Misi Harian UI
+      document.getElementById('questStarStatus').innerText = `Progres: ${Math.min(totalStars, 30)}/30`;
+      document.getElementById('questWorldStatus').innerText = `Progres: ${Math.min(unlockedStickers.length, 1)}/1`;
+    }
+
+    /* SOUND FX ENGINE VIA WEB AUDIO API */
+    function playBeep(freq = 440, type = 'sine', duration = 0.15) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    function toggleBackgroundMusic() {
+      isBgmPlaying = !isBgmPlaying;
+      const btn = document.getElementById('btnBgmToggle');
+      if (isBgmPlaying) {
+        btn.className = "w-10 h-10 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-lg transition shadow-bouncySm animate-pulse";
+        showToast("Musik Latar Ceria Aktif 🎶", "🎵");
+        playBeep(523.25, 'triangle', 0.3);
+      } else {
+        btn.className = "w-10 h-10 bg-pink-100 hover:bg-pink-200 text-pink-700 rounded-2xl flex items-center justify-center text-lg transition shadow-bouncySm";
+        showToast("Musik Ditutup", "🔇");
+      }
+    }
+
+    /* NAVIGATION LOGIC */
+    function showSection(sectionId) {
+      playBeep(600, 'sine', 0.1);
+      const sections = ['home', 'map', 'quiz', 'result', 'stickers', 'store', 'about', 'teacher', 'guide'];
+      sections.forEach(sec => {
+        const el = document.getElementById(`sec-${sec}`);
+        if (el) el.classList.add('hidden');
+      });
+
+      const target = document.getElementById(`sec-${sectionId}`);
+      if (target) {
+        target.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      if (sectionId === 'map') renderMapRoute();
+      if (sectionId === 'stickers') renderStickersAlbum();
+      if (sectionId === 'teacher') loadTeacherWorldQuestions();
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+
+    function toggleNightMode() {
+      document.body.classList.toggle('night-mode');
+      showToast(document.body.classList.contains('night-mode') ? "Mode Malam Bintang Aktif 🌙" : "Mode Siang Cerah Aktif ☀️", "✨");
+    }
+
+    function updateUserStatusNav() {
+      const container = document.getElementById('navUserStatus');
+      if (currentUser.role === 'guru') {
+        container.innerHTML = `
+          <button onclick="showSection('teacher')" class="bg-purple-100 border-2 border-purple-400 text-purple-800 font-black px-3 py-1.5 rounded-2xl text-xs flex items-center gap-1">
+            👩‍🏫 ${currentUser.name}
+          </button>
+        `;
+      } else {
+        container.innerHTML = `
+          <button onclick="openLoginModal('siswa')" class="bg-yellow-100 border-2 border-yellow-400 text-yellow-900 font-black px-3 py-1.5 rounded-2xl text-xs flex items-center gap-1">
+            👦 ${currentUser.name}
+          </button>
+        `;
+      }
+    }
+
+    function showToast(msg, icon = '📢') {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastIcon').innerText = icon;
+      document.getElementById('toastMessage').innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => { toast.classList.add('hidden'); }, 3000);
+    }
+
+    /* AI TEXT-TO-SPEECH SYSTEM */
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'id-ID';
+        utterance.rate = aiSpeechSettings.rate;
+
+        const voices = window.speechSynthesis.getVoices();
+        const idVoice = voices.find(v => v.lang.includes('id') || v.lang.includes('ID'));
+        if (idVoice) utterance.voice = idVoice;
+
+        window.speechSynthesis.speak(utterance);
+      } else {
+        showToast("Perangkat tidak mendukung pembacaan suara AI.", "⚠️");
+      }
+    }
+
+    function speakCurrentQuestion() {
+      if (currentQuestions[currentQuizIndex]) {
+        const q = currentQuestions[currentQuizIndex];
+        speakText(`${q.text}`);
+      }
+    }
+
+    function speakAllOptions() {
+      if (currentQuestions[currentQuizIndex]) {
+        const q = currentQuestions[currentQuizIndex];
+        speakText(`Pilihan jawaban: Opsi A: ${q.options[0]}. Opsi B: ${q.options[1]}. Opsi C: ${q.options[2]}. Opsi D: ${q.options[3]}.`);
+      }
+    }
+
+    function refreshCurrentWorldQuiz() {
+      if (currentWorldId) {
+        startWorldQuiz(currentWorldId);
+        showToast("Soal baru berhasil di-refresh!", "🔄");
+      }
+    }
+
+    function changeAvatar(type) {
+      showToast(`Karakter avatar diganti!`, "🐱");
+      playBeep(800, 'sine', 0.15);
+    }
+
+    function toggleAiSettingsModal() {
+      document.getElementById('aiSettingsModal').classList.toggle('hidden');
+    }
+
+    function toggleAutoReadSetting() {
+      aiSpeechSettings.autoRead = document.getElementById('aiAutoReadToggle').checked;
+      saveDataToStorage();
+    }
+
+    function updateSpeechRateSetting() {
+      aiSpeechSettings.rate = parseFloat(document.getElementById('aiSpeechRate').value);
+      saveDataToStorage();
+    }
+
+    function testAiSpeech() {
+      speakText("Halo teman-teman! Saya Smarty si Burung Hantu. Siap belajar bersama di Kids Smart Adventure?");
+    }
+
+    /* REVISE MAP ROUTE RENDERING WITH FILTER */
+    function filterMapCategory() {
+      renderMapRoute();
+    }
+
+    function renderMapRoute() {
+      const container = document.getElementById('mapRouteContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const filterVal = document.getElementById('mapCategoryFilter') ? document.getElementById('mapCategoryFilter').value : 'all';
+
+      appWorlds.forEach((w, index) => {
+        if (filterVal !== 'all' && !w.level.includes(filterVal)) return;
+
+        const isUnlocked = index === 0 || unlockedStickers.includes(appWorlds[index - 1].id);
+        const isCompleted = unlockedStickers.includes(w.id);
+
+        const card = document.createElement('div');
+        card.className = `bg-white rounded-3xl p-6 border-4 ${isUnlocked ? 'border-sky-300 shadow-xl' : 'border-slate-200 opacity-70'} transition transform hover:-translate-y-1 relative space-y-4 flex flex-col justify-between`;
+
+        card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="w-12 h-12 ${w.color} text-white rounded-2xl flex items-center justify-center text-2xl font-black shadow-md">
+                ${w.icon}
+              </span>
+              <span class="${w.badgeColor} text-white font-black text-xs px-3 py-1 rounded-full shadow-sm">
+                ${w.level}
+              </span>
+            </div>
+
+            <h3 class="text-xl font-black text-slate-800">${w.name}</h3>
+            <p class="text-xs font-bold text-slate-500">${w.questions.length} Soal Interaktif (A-B-C-D)</p>
+          </div>
+
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+            ${isCompleted ? 
+              `<span class="text-xs font-black text-emerald-600 bg-emerald-100 px-3 py-1.5 rounded-xl">✓ Selesai (+Stiker)</span>` : 
+              (isUnlocked ? `<span class="text-xs font-black text-amber-600 bg-amber-100 px-3 py-1.5 rounded-xl">🌟 Siap Main</span>` : `<span class="text-xs font-black text-slate-400 bg-slate-100 px-3 py-1.5 rounded-xl">🔒 Terkunci</span>`)}
+
+            <button onclick="startWorldQuiz('${w.id}')" ${!isUnlocked ? 'disabled' : ''} class="btn-press ${isUnlocked ? 'bg-pink-500 hover:bg-pink-600 text-white shadow-bouncySm' : 'bg-slate-300 text-slate-50 cursor-not-allowed'} font-black px-4 py-2 rounded-2xl text-xs">
+              ${isUnlocked ? 'Mulai 🚀' : 'Terkunci'}
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    /* REVISE STICKERS ALBUM RENDERING */
+    function renderStickersAlbum() {
+      const container = document.getElementById('stickersGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      appWorlds.forEach(w => {
+        const isUnlocked = unlockedStickers.includes(w.id);
+        const stickerInfo = STICKER_DATABASE[w.id] || { name: 'Stiker Prestasi', svg: '🌟' };
+
+        const card = document.createElement('div');
+        card.className = `p-4 rounded-3xl border-4 text-center space-y-2 ${isUnlocked ? 'bg-amber-50 border-amber-300 shadow-md' : 'bg-slate-100 border-slate-200 opacity-60'}`;
+
+        card.innerHTML = `
+          <div class="w-16 h-16 mx-auto bg-white rounded-2xl flex items-center justify-center text-4xl shadow-inner">
+            ${isUnlocked ? stickerInfo.svg : '🔒'}
+          </div>
+          <h4 class="text-xs font-black text-slate-800">${stickerInfo.name}</h4>
+          <p class="text-[10px] font-bold ${isUnlocked ? 'text-amber-600' : 'text-slate-400'}">
+            ${isUnlocked ? 'Terkoleksi ✨' : 'Selesaikan Dunia'}
+          </p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    /* SCRATCHPAD CANVAS CORETTAN LOGIC */
+    let isDrawing = false;
+    let scratchCtx = null;
+
+    function initScratchpadCanvas() {
+      const cvs = document.getElementById('scratchCanvas');
+      if (!cvs) return;
+      scratchCtx = cvs.getContext('2d');
+      scratchCtx.strokeStyle = '#FFFFFF';
+      scratchCtx.lineWidth = 4;
+      scratchCtx.lineCap = 'round';
+
+      cvs.addEventListener('mousedown', (e) => { isDrawing = true; scratchCtx.beginPath(); scratchCtx.moveTo(e.offsetX, e.offsetY); });
+      cvs.addEventListener('mousemove', (e) => { if(isDrawing) { scratchCtx.lineTo(e.offsetX, e.offsetY); scratchCtx.stroke(); } });
+      cvs.addEventListener('mouseup', () => isDrawing = false);
+    }
+
+    function toggleScratchpad() {
+      document.getElementById('scratchpadBox').classList.toggle('hidden');
+    }
+
+    function clearScratchpad() {
+      if (scratchCtx) {
+        scratchCtx.clearRect(0, 0, 600, 200);
+      }
+    }
+
+    /* QUIZ PLAYER LOGIC WITH LIVES & SCRATCHPAD */
+    function startWorldQuiz(worldId) {
+      currentWorldId = worldId;
+      const world = appWorlds.find(w => w.id === worldId);
+      if (!world) return;
+
+      currentQuestions = JSON.parse(JSON.stringify(world.questions));
+      currentQuestions.sort(() => Math.random() - 0.5);
+
+      currentQuizIndex = 0;
+      currentScore = 0;
+      quizLives = 3;
+
+      document.getElementById('quizLivesContainer').innerText = '❤️'.repeat(quizLives);
+      document.getElementById('quizWorldBadge').innerText = `${world.icon} ${world.name}`;
+      document.getElementById('quizWorldBadge').className = `px-4 py-1.5 rounded-2xl font-black text-white text-sm shadow-sm ${world.badgeColor}`;
+      document.getElementById('quizCognitiveLevel').innerText = world.level;
+      document.getElementById('quizTotalQuestions').innerText = currentQuestions.length;
+
+      showSection('quiz');
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      if (currentQuizIndex >= currentQuestions.length || quizLives <= 0) {
+        finishWorldQuiz();
+        return;
+      }
+
+      const q = currentQuestions[currentQuizIndex];
+      document.getElementById('quizCurrentIndex').innerText = currentQuizIndex + 1;
+      document.getElementById('quizScoreCount').innerText = `⭐ ${currentScore} Bintang`;
+      
+      const pct = ((currentQuizIndex) / currentQuestions.length) * 100;
+      document.getElementById('quizProgressBar').style.width = `${pct}%`;
+
+      document.getElementById('quizQuestionText').innerText = q.text;
+
+      // Visual SVG Render
+      const visualBox = document.getElementById('quizQuestionVisual');
+      visualBox.innerHTML = renderSvgVisual(q.visual || 'star');
+
+      // Options Rendering (A, B, C, D)
+      const optionsContainer = document.getElementById('quizOptionsContainer');
+      optionsContainer.innerHTML = '';
+      
+      const optLetters = ['A', 'B', 'C', 'D'];
+      const optColors = [
+        'bg-pink-100 hover:bg-pink-200 border-pink-300 text-pink-900',
+        'bg-yellow-100 hover:bg-yellow-200 border-yellow-300 text-yellow-900',
+        'bg-emerald-100 hover:bg-emerald-200 border-emerald-300 text-emerald-900',
+        'bg-sky-100 hover:bg-sky-200 border-sky-300 text-sky-900'
+      ];
+
+      q.options.forEach((optText, i) => {
+        const btn = document.createElement('button');
+        btn.id = `optBtn_${i}`;
+        btn.onclick = () => selectQuizOption(i);
+        btn.className = `btn-press w-full p-4 rounded-2xl border-4 ${optColors[i % 4]} font-black text-lg sm:text-xl text-left flex items-center gap-3 shadow-bouncySm transition`;
+        btn.innerHTML = `
+          <span class="w-10 h-10 rounded-xl bg-white flex items-center justify-center font-black text-base shadow-sm shrink-0">
+            ${optLetters[i]}
+          </span>
+          <span class="flex-1">${optText}</span>
+        `;
+        optionsContainer.appendChild(btn);
+      });
+
+      const feedback = document.getElementById('quizFeedbackArea');
+      feedback.classList.add('hidden');
+      document.getElementById('btnHint5050').disabled = false;
+
+      // Auto Read setting check
+      if (aiSpeechSettings.autoRead) {
+        setTimeout(() => { speakCurrentQuestion(); }, 400);
+      }
+    }
+
+    function renderSvgVisual(type) {
+      if (type === 'apple') {
+        return `<svg viewBox="0 0 100 100" class="w-24 h-24"><circle cx="50" cy="55" r="35" fill="#EF4444"/><path d="M 50 20 Q 55 5 65 10" stroke="#15803D" stroke-width="6" fill="none"/><circle cx="40" cy="45" r="5" fill="#FFFFFF" opacity="0.4"/></svg>`;
+      } else if (type === 'cat') {
+        return `<svg viewBox="0 0 100 100" class="w-24 h-24"><circle cx="50" cy="55" r="32" fill="#F97316"/><polygon points="25,30 35,10 45,35" fill="#F97316"/><polygon points="75,30 65,10 55,35" fill="#F97316"/><circle cx="38" cy="50" r="5" fill="#000"/><circle cx="62" cy="50" r="5" fill="#000"/><polygon points="50,58 45,64 55,64" fill="#FF9AA2"/></svg>`;
+      } else if (type === 'car') {
+        return `<svg viewBox="0 0 100 100" class="w-24 h-24"><rect x="15" y="45" width="70" height="25" rx="10" fill="#0EA5E9"/><path d="M 30 45 L 40 25 L 65 25 L 75 45 Z" fill="#38BDF8"/><circle cx="32" cy="70" r="10" fill="#1E293B"/><circle cx="68" cy="70" r="10" fill="#1E293B"/></svg>`;
+      }
+      return `<svg viewBox="0 0 100 100" class="w-24 h-24"><polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36" fill="#FACC15"/><circle cx="42" cy="42" r="4" fill="#000"/><circle cx="58" cy="42" r="4" fill="#000"/></svg>`;
+    }
+
+    function selectQuizOption(idx) {
+      const q = currentQuestions[currentQuizIndex];
+      const feedback = document.getElementById('quizFeedbackArea');
+      feedback.classList.remove('hidden');
+
+      if (idx === q.correct) {
+        currentScore += 10;
+        totalStars += 10;
+        userXp += 15;
+        saveDataToStorage();
+
+        playBeep(880, 'triangle', 0.2);
+        feedback.className = "p-4 rounded-2xl text-center font-black text-lg bg-emerald-100 text-emerald-800 border-2 border-emerald-300 animate-bounce";
+        feedback.innerText = `🎉 YAY BENAR! ${q.exp}`;
+
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+        speakText("Hore! Jawabanmu Tepat Sekali!");
+      } else {
+        quizLives--;
+        document.getElementById('quizLivesContainer').innerText = '❤️'.repeat(Math.max(0, quizLives));
+        playBeep(220, 'sawtooth', 0.3);
+
+        feedback.className = "p-4 rounded-2xl text-center font-black text-lg bg-pink-100 text-pink-800 border-2 border-pink-300";
+        feedback.innerText = `Ayo Coba Lagi! Jawaban yang benar adalah Opsi ${['A','B','C','D'][q.correct]}.`;
+        speakText("Hampir benar! Ayo coba lagi di soal berikutnya!");
+      }
+
+      setTimeout(() => {
+        currentQuizIndex++;
+        renderQuizQuestion();
+      }, 2000);
+    }
+
+    function useHint5050() {
+      const q = currentQuestions[currentQuizIndex];
+      const correctIdx = q.correct;
+      let removedCount = 0;
+
+      for (let i = 0; i < 4; i++) {
+        if (i !== correctIdx && removedCount < 2) {
+          const btn = document.getElementById(`optBtn_${i}`);
+          if (btn) {
+            btn.style.opacity = '0.2';
+            btn.disabled = true;
+            removedCount++;
+          }
+        }
+      }
+      document.getElementById('btnHint5050').disabled = true;
+      showToast("Hint 50:50 mengeliminasi 2 opsi salah!", "💡");
+    }
+
+    function finishWorldQuiz() {
+      if (quizLives > 0 && !unlockedStickers.includes(currentWorldId)) {
+        unlockedStickers.push(currentWorldId);
+        document.getElementById('unlockedStickerAlert').classList.remove('hidden');
+      } else {
+        document.getElementById('unlockedStickerAlert').classList.add('hidden');
+      }
+
+      saveDataToStorage();
+      document.getElementById('resultScore').innerText = currentScore;
+      document.getElementById('resultStars').innerText = `⭐ ${currentScore}`;
+
+      showSection('result');
+      confetti({ particleCount: 120, spread: 100, origin: { y: 0.5 } });
+      speakText("Selamat! Kamu telah menyelesaikan seluruh soal di dunia ini dengan luar biasa!");
+    }
+
+    function restartCurrentWorldQuiz() {
+      if (currentWorldId) startWorldQuiz(currentWorldId);
+    }
+
+    /* E-BOOK INTEGRATED CANVAS READER LOGIC */
+    const EBOOKS_DATA = {
+      kelinci: {
+        title: "Si Kelinci Pencar Bintang",
+        icon: "🐰",
+        pages: [
+          "Di sebuah hutan yang indah, hidup seekor kelinci bernama Ceria. Ceria sangat suka melihat bintang di langit malam.",
+          "Suatu malam, Ceria menghitung bintang bersama temannya si Burung Hantu. 'Satu, dua, tiga bintang terang!' puji Ceria.",
+          "Ceria belajar bahwa berhitung dan membaca abjad sangat menyenangkan jika dilakukan bersama sahabat!"
+        ]
+      },
+      sains: {
+        title: "Petualangan Sains Cilik",
+        icon: "🧪",
+        pages: [
+          "Tahukah kamu kenapa daun berwarna hijau? Daun mengandung zat bernama klorofil yang menyerap sinar matahari!",
+          "Air dan minyak tidak bisa menyatu karena perbedaan massa jenis. Cobalah campurkan di dalam gelas di rumah!",
+          "Sains ada di sekitar kita setiap hari. Teruslah bertanya dan melakukan percobaan seru!"
+        ]
+      },
+      coding: {
+        title: "Logika Coding & AI Pemula",
+        icon: "🤖",
+        pages: [
+          "Coding adalah cara kita berbicara dengan komputer. Kita memberikan urutan instruksi bernama Algoritma.",
+          "Kecerdasan Buatan (AI) membantu manusia mengenali suara, gambar, dan memberikan jawaban cerdas.",
+          "Kamu bisa menjadi pembuat game dan aplikasi hebat di masa depan dengan mempelajari logika dasar!"
+        ]
+      }
+    };
+
+    let activeEbookKey = 'kelinci';
+    let currentEbookPageIndex = 0;
+
+    function openEbookReader(bookKey) {
+      if (!EBOOKS_DATA[bookKey]) return;
+      activeEbookKey = bookKey;
+      currentEbookPageIndex = 0;
+      renderEbookPage();
+      document.getElementById('ebookReaderModal').classList.remove('hidden');
+      document.getElementById('questEbookStatus').innerText = "Progres: 1/1 ✓";
+    }
+
+    function renderEbookPage() {
+      const book = EBOOKS_DATA[activeEbookKey];
+      document.getElementById('ebookReaderTitle').innerText = book.title;
+      document.getElementById('ebookReaderIcon').innerText = book.icon;
+      document.getElementById('ebookReaderPageIndicator').innerText = `Halaman ${currentEbookPageIndex + 1} dari ${book.pages.length}`;
+
+      document.getElementById('ebookReaderBody').innerHTML = `
+        <div class="text-center py-4">
+          <span class="text-6xl">${book.icon}</span>
+        </div>
+        <p class="text-center font-bold text-slate-800 leading-relaxed">${book.pages[currentEbookPageIndex]}</p>
+      `;
+
+      document.getElementById('btnPrevPage').disabled = (currentEbookPageIndex === 0);
+      document.getElementById('btnNextPage').disabled = (currentEbookPageIndex === book.pages.length - 1);
+    }
+
+    function nextEbookPage() {
+      const book = EBOOKS_DATA[activeEbookKey];
+      if (currentEbookPageIndex < book.pages.length - 1) {
+        currentEbookPageIndex++;
+        renderEbookPage();
+      }
+    }
+
+    function prevEbookPage() {
+      if (currentEbookPageIndex > 0) {
+        currentEbookPageIndex--;
+        renderEbookPage();
+      }
+    }
+
+    function speakEbookPage() {
+      const book = EBOOKS_DATA[activeEbookKey];
+      if (book && book.pages[currentEbookPageIndex]) {
+        speakText(book.pages[currentEbookPageIndex]);
+      }
+    }
+
+    /* GURU PORTAL & LOGIN LOGIC */
+    function openLoginModal(tab) {
+      switchLoginTab(tab);
+      document.getElementById('loginModal').classList.remove('hidden');
+    }
+
+    function switchLoginTab(tab) {
+      const formGuru = document.getElementById('formGuruLogin');
+      const formSiswa = document.getElementById('formSiswaLogin');
+      const btnGuru = document.getElementById('tabBtnGuru');
+      const btnSiswa = document.getElementById('tabBtnSiswa');
+
+      if (tab === 'guru') {
+        formGuru.classList.remove('hidden');
+        formSiswa.classList.add('hidden');
+        btnGuru.className = 'flex-1 py-3 font-black text-purple-600 border-b-4 border-purple-600';
+        btnSiswa.className = 'flex-1 py-3 font-black text-slate-400 border-b-4 border-transparent';
+      } else {
+        formGuru.classList.add('hidden');
+        formSiswa.classList.remove('hidden');
+        btnSiswa.className = 'flex-1 py-3 font-black text-yellow-600 border-b-4 border-yellow-500';
+        btnGuru.className = 'flex-1 py-3 font-black text-slate-400 border-b-4 border-transparent';
+      }
+    }
+
+    function handleGuruLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('guruUsername').value.trim();
+      const p = document.getElementById('guruPassword').value.trim();
+      const err = document.getElementById('guruAuthError');
+
+      const found = teachersDb.find(t => t.username === u && t.password === p);
+      if (found) {
+        currentUser = { name: u, role: 'guru' };
+        updateUserStatusNav();
+        closeModal('loginModal');
+        showSection('teacher');
+        showToast(`Selamat datang Guru ${u}!`, "👩‍🏫");
+      } else {
+        err.innerText = "Username / Password Guru salah!";
+        err.classList.remove('hidden');
+      }
+    }
+
+    function registerGuruAccount() {
+      const u = document.getElementById('guruUsername').value.trim();
+      const p = document.getElementById('guruPassword').value.trim();
+      if (!u || !p) {
+        showToast("Isi username & password!", "⚠️");
+        return;
+      }
+      teachersDb.push({ username: u, password: p });
+      saveDataToStorage();
+      showToast("Akun guru berhasil dibuat! Silakan klik Masuk.", "✅");
+    }
+
+    function handleSiswaLogin(e) {
+      e.preventDefault();
+      const name = document.getElementById('siswaName').value.trim() || 'Petualang Cilik';
+      currentUser = { name: name, role: 'siswa' };
+      updateUserStatusNav();
+      closeModal('loginModal');
+      showSection('map');
+      showToast(`Selamat berpetualang, ${name}!`, "👦");
+    }
+
+    function logoutGuru() {
+      currentUser = { name: 'Petualang Cilik', role: 'siswa' };
+      updateUserStatusNav();
+      showSection('home');
+      showToast("Telah keluar dari Portal Guru.", "🚪");
+    }
+
+    function openCertificateModal() {
+      document.getElementById('certStudentName').innerText = currentUser.name;
+      document.getElementById('certModal').classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add('hidden');
+      if (modalId === 'ebookReaderModal') window.speechSynthesis.cancel();
+    }
+
+    function populateTeacherWorldSelect() {
+      const select = document.getElementById('teacherWorldSelect');
+      if (!select) return;
+      select.innerHTML = '';
+      appWorlds.forEach(w => {
+        const opt = document.createElement('option');
+        opt.value = w.id;
+        opt.innerText = `${w.icon} ${w.name}`;
+        select.appendChild(opt);
+      });
+    }
+
+    function loadTeacherWorldQuestions() {
+      const select = document.getElementById('teacherWorldSelect');
+      if (!select) return;
+      const worldId = select.value || appWorlds[0].id;
+      const world = appWorlds.find(w => w.id === worldId);
+
+      const searchVal = document.getElementById('teacherSearchInput') ? document.getElementById('teacherSearchInput').value.toLowerCase() : '';
+
+      document.getElementById('teacherQuestionCount').innerText = world.questions.length;
+      const list = document.getElementById('teacherQuestionsList');
+      list.innerHTML = '';
+
+      world.questions.forEach((q, idx) => {
+        if (searchVal && !q.text.toLowerCase().includes(searchVal)) return;
+
+        const item = document.createElement('div');
+        item.className = "bg-slate-50 p-4 rounded-2xl border border-slate-200 flex justify-between items-center gap-3";
+        item.innerHTML = `
+          <div class="flex-1">
+            <p class="font-black text-slate-800 text-sm">${idx + 1}. ${q.text}</p>
+            <p class="text-xs text-slate-500 font-bold">Kunci Jawaban: Opsi ${['A','B','C','D'][q.correct]}</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="editQuestionModal(${idx})" class="bg-amber-400 text-slate-900 font-black px-3 py-1.5 rounded-xl text-xs">Edit</button>
+            <button onclick="deleteQuestion(${idx})" class="bg-red-500 text-white font-black px-3 py-1.5 rounded-xl text-xs">Hapus</button>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function exportTeacherData() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appWorlds));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "kids_smart_questions.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast("Data soal berhasil diekspor JSON!", "📥");
+    }
+
+    function generateAiQuestionsForSelectedWorld() {
+      const worldId = document.getElementById('teacherWorldSelect').value;
+      const world = appWorlds.find(w => w.id === worldId);
+      showToast("AI Smarty men-generate 10 soal baru...", "🤖");
+
+      setTimeout(() => {
+        world.questions = [
+          { text: `(AI) Soal 1 untuk ${world.name}: Apakah ini benar?`, visual: 'star', options: ['Benar', 'Salah', 'Bisa Jadi', 'Tidak Tahu'], correct: 0, exp: 'Hebat!' },
+          { text: `(AI) Soal 2 untuk ${world.name}: Pilih jawaban terbaik!`, visual: 'star', options: ['Pilihan A', 'Pilihan B', 'Pilihan C', 'Pilihan D'], correct: 1, exp: 'Benar!' },
+          { text: `(AI) Soal 3 untuk ${world.name}: Pertanyaan kognitif cerdas!`, visual: 'apple', options: ['Jawaban 1', 'Jawaban 2', 'Jawaban 3', 'Jawaban 4'], correct: 0, exp: 'Tepat!' }
+        ];
+        saveDataToStorage();
+        loadTeacherWorldQuestions();
+        showToast("10 Soal AI Berhasil Dipasang!", "✨");
+      }, 1000);
+    }
+
+    function addNewQuestionModal() {
+      document.getElementById('editQuestionIndex').value = -1;
+      document.getElementById('questionModalTitle').innerText = "Tambah Soal Baru";
+      document.getElementById('editQText').value = "";
+      document.getElementById('editOpt0').value = "";
+      document.getElementById('editOpt1').value = "";
+      document.getElementById('editOpt2').value = "";
+      document.getElementById('editOpt3').value = "";
+      document.getElementById('editQExplanation').value = "";
+      document.getElementById('questionModal').classList.remove('hidden');
+    }
+
+    function editQuestionModal(idx) {
+      const worldId = document.getElementById('teacherWorldSelect').value;
+      const world = appWorlds.find(w => w.id === worldId);
+      const q = world.questions[idx];
+
+      document.getElementById('editQuestionIndex').value = idx;
+      document.getElementById('questionModalTitle').innerText = `Edit Soal #${idx + 1}`;
+      document.getElementById('editQText').value = q.text;
+      document.getElementById('editOpt0').value = q.options[0];
+      document.getElementById('editOpt1').value = q.options[1];
+      document.getElementById('editOpt2').value = q.options[2];
+      document.getElementById('editOpt3').value = q.options[3];
+      document.getElementById('editQExplanation').value = q.exp;
+      document.getElementById('questionModal').classList.remove('hidden');
+    }
+
+    function saveQuestion(e) {
+      e.preventDefault();
+      const worldId = document.getElementById('teacherWorldSelect').value;
+      const world = appWorlds.find(w => w.id === worldId);
+      const idx = parseInt(document.getElementById('editQuestionIndex').value);
+
+      const qObj = {
+        text: document.getElementById('editQText').value,
+        visual: document.getElementById('editQVisual').value,
+        options: [
+          document.getElementById('editOpt0').value,
+          document.getElementById('editOpt1').value,
+          document.getElementById('editOpt2').value,
+          document.getElementById('editOpt3').value
+        ],
+        correct: parseInt(document.querySelector('input[name="correctOpt"]:checked').value),
+        exp: document.getElementById('editQExplanation').value || 'Pintar sekali!'
+      };
+
+      if (idx === -1) {
+        world.questions.push(qObj);
+      } else {
+        world.questions[idx] = qObj;
+      }
+
+      saveDataToStorage();
+      closeModal('questionModal');
+      loadTeacherWorldQuestions();
+      showToast("Soal berhasil disimpan!", "💾");
+    }
+
+    function deleteQuestion(idx) {
+      const worldId = document.getElementById('teacherWorldSelect').value;
+      const world = appWorlds.find(w => w.id === worldId);
+      world.questions.splice(idx, 1);
+      saveDataToStorage();
+      loadTeacherWorldQuestions();
+      showToast("Soal dihapus.", "🗑️");
+    }
+
+    function resetDefaultQuestions() {
+      appWorlds = JSON.parse(JSON.stringify(DEFAULT_WORLDS));
+      saveDataToStorage();
+      loadTeacherWorldQuestions();
+      showToast("Soal direset ke standar pabrik.", "🔄");
+    }
+  </script>
+</body>
+</html>
